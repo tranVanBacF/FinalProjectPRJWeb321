@@ -12,6 +12,7 @@
         <title>Survey unavailable</title>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <h1>The survey you request is not exist!</h1>
     </body>
 </html>

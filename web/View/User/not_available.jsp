@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <h1>The page you request is not available</h1>
     </body>
 </html>

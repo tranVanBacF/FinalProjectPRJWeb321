@@ -32,6 +32,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <button onclick="window.location.href = 'link to open'" style="margin-left: auto; margin-right: auto; display: block">Add new Survey</button>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>

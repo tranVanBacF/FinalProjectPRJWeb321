@@ -13,6 +13,7 @@
         <title>Answer details</title>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <h1 style="text-align: center">${survey.getName()}</h1>
         <br>
         <h2 style="text-align: center">${survey.getDescription()}</h2>
