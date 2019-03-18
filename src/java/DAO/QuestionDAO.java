@@ -93,8 +93,8 @@ public class QuestionDAO {
         Connection conn = DBConnection.createConnection();
         //Statement to get all questions of a survey
         String sql = "SELECT q.* " +
-            "FROM Questions q, Surveys s " +
-            "WHERE q.Survey = s.Id AND s.Id = ?";
+            "FROM Questions q " +
+            "WHERE q.Survey = ?";
         
         PreparedStatement ptml;
         try {
