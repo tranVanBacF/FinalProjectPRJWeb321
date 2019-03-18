@@ -36,7 +36,6 @@ public class UserDAO {
             ptml = conn.prepareStatement(sql);
             // user ResultSet Object to save all rows after select
             ResultSet rs = ptml.executeQuery();
-
             while (rs.next()) {// check if rs has element
                 listUser.add(new User(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6)));
             }
@@ -45,7 +44,7 @@ public class UserDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(1006, ex);
+            throw new MyException(2006, ex);
         }
         return listUser;
     }
@@ -76,7 +75,7 @@ public class UserDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(1007, ex);
+            throw new MyException(2007, ex);
         }
         return false;
     }
@@ -105,7 +104,7 @@ public class UserDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(1110, ex);
+            throw new MyException(2008, ex);
         }
         return null;
     }

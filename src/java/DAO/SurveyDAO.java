@@ -50,7 +50,7 @@ public class SurveyDAO {
             }
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(3001, ex);
         }
         return false;
     }
@@ -78,7 +78,7 @@ public class SurveyDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(3002, ex);
         }
         return listSurvey;
 
@@ -120,7 +120,7 @@ public class SurveyDAO {
             }
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(3003, ex);
         }
         return false;
     }
@@ -149,7 +149,7 @@ public class SurveyDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(3004, ex);
         }
         return null;
 

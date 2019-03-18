@@ -32,7 +32,11 @@
         </style>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <button onclick="window.location.href = 'link to open'" style="margin-left: auto; margin-right: auto; display: block">Add new Survey</button>
+        <c:if test="${not empty exception}">
+            <h2>${exception}</h2>
+        </c:if>
         <c:if test="${surveys.isEmpty()}">
             <h2>You current don't have any survey</h2>;
         </c:if>

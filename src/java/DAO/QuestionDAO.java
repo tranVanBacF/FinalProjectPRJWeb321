@@ -44,7 +44,7 @@ public class QuestionDAO {
             }
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4001, ex);
         }
         return false;
     }
@@ -72,7 +72,7 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4002, ex);
         }
         return listQuestion;
     }
@@ -93,8 +93,8 @@ public class QuestionDAO {
         Connection conn = DBConnection.createConnection();
         //Statement to get all questions of a survey
         String sql = "SELECT q.* " +
-            "FROM Questions q, Surveys s " +
-            "WHERE q.Survey = s.Id AND s.Id = ?";
+            "FROM Questions q " +
+            "WHERE q.Survey = ?";
         
         PreparedStatement ptml;
         try {
@@ -111,7 +111,7 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4003, ex);
         }
         return questions;
     }

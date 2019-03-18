@@ -19,15 +19,15 @@ public class SurveyManagement {
         return SurveyDAO.insertSurvey(survey);
     }
     
-    public static List<Survey> getSurveysByUsername(String username) {
+    public static List<Survey> getSurveysByUsername(String username) throws MyException {
         return SurveyDAO.getSurveyByUsername(username);
     }
 
-    public static boolean setStatusBySurveyId(int surveyID, int status) {
+    public static boolean setStatusBySurveyId(int surveyID, int status) throws MyException {
         return SurveyDAO.setStatusBySurveyId(surveyID, status);
     }
 
-    public static Survey getSurveyById(int surveyID) {
+    public static Survey getSurveyById(int surveyID) throws MyException {
         return SurveyDAO.getSurveyById(surveyID);
     }
 

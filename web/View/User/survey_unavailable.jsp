@@ -9,9 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Survey unavailable</title>
     </head>
     <body>
+        <jsp:include page="../Menu.jsp"/>
         <h1>The survey you request is not exist!</h1>
     </body>
 </html>

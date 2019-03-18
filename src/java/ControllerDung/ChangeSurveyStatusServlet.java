@@ -7,9 +7,13 @@ package ControllerDung;
  */
 
 
+import Exception.MyException;
 import ManagementDAO.SurveyManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -76,16 +80,26 @@ public class ChangeSurveyStatusServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String surveyId = request.getParameter("survey");
-        System.out.println("Survey id " + surveyId);
-        int surveyID = Integer.parseInt(surveyId);
-        String statusToChange = request.getParameter("status");
-        System.out.println("Status id " + statusToChange);
-        int status = Integer.valueOf(statusToChange);
-        boolean updateStatusRS = SurveyManagement.setStatusBySurveyId(surveyID, status);
-        System.out.println("Change status come herer");
-        if (updateStatusRS){
-            response.sendRedirect("surveys?id=1");
+        try {
+            String surveyId = request.getParameter("survey");
+            System.out.println("Survey id " + surveyId);
+            int surveyID = Integer.parseInt(surveyId);
+            String statusToChange = request.getParameter("status");
+            System.out.println("Status id " + statusToChange);
+            int status = Integer.valueOf(statusToChange);
+            boolean updateStatusRS = SurveyManagement.setStatusBySurveyId(surveyID, status);
+            System.out.println("Change status come herer");
+            if (updateStatusRS){
+                response.sendRedirect("surveys");
+            }
+            else{
+                request.setAttribute("err", "Can't set status of survey");
+            }
+        } catch (MyException ex) {
+            request.setAttribute("exception", ex);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
 
