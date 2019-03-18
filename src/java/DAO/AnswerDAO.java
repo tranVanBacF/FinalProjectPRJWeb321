@@ -47,7 +47,7 @@ public class AnswerDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(5001, ex);            
         }
         return submitters;
     }
@@ -81,7 +81,7 @@ public class AnswerDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(5002, ex);
         }
         return answers;
     }

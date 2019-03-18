@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Submitters of survey</title>
     </head>
     <body>
         <h1 style="text-align: center">${survey.getName()}</h1>

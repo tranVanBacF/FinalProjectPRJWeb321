@@ -44,7 +44,7 @@ public class QuestionDAO {
             }
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4001, ex);
         }
         return false;
     }
@@ -72,7 +72,7 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4002, ex);
         }
         return listQuestion;
     }
@@ -111,7 +111,7 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MyException(4003, ex);
         }
         return questions;
     }

@@ -1,17 +1,22 @@
 package ControllerDung;
 
 import Entity.Survey;
+import Entity.User;
+import Exception.MyException;
 import ManagementDAO.SurveyManagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -58,25 +63,25 @@ public class SurveyManagementBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userID = request.getParameter("id");
-        int userId;
-        if (userID != null){
-            userId = Integer.valueOf(userID);
-            List<Survey> surveys = SurveyManagement.getSurveysByUsername("ha");
-            if (surveys != null){
-                request.setAttribute("surveys", surveys);
-                System.out.println("Come here");
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
-                requestDispatcher.forward(request, response);
-            }
-            else{
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/not_available.jsp");
-                requestDispatcher.forward(request, response);
-                return;
-            }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        List<Survey> surveys;
+        try {
+            surveys = SurveyManagement.getSurveysByUsername("ha");
+            request.setAttribute("surveys", surveys);
+            System.out.println("Come here");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
+            requestDispatcher.forward(request, response);
+            
+        } catch (MyException ex) {
+            request.setAttribute("exception", ex);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *

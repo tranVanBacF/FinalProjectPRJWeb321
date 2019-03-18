@@ -88,7 +88,10 @@ public class AnswerDetailServlet extends HttpServlet {
             RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/answers.jsp");
             dispatcher.forward(request, response);
         } catch (MyException ex) {
-            Logger.getLogger(AnswerDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("exception", ex);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
 
