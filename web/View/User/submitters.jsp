@@ -15,6 +15,9 @@
         <h1 style="text-align: center">${survey.getName()}</h1>
         <br>
         <h2 style="text-align: center">${survey.getDescription()}</h2>
+        <c:if test="${not empty exception}">
+            <h2>${exception}</h2>
+        </c:if>
         <c:if test="${submitters.isEmpty()}">
             <h2>Your survey don't have any submit</h2>;
         </c:if>

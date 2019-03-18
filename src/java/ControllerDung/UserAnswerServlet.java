@@ -84,7 +84,9 @@ public class UserAnswerServlet extends HttpServlet {
             RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
             dispatcher.forward(request, response);
         } catch (MyException ex) {
-            Logger.getLogger(UserAnswerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("exception", ex);
+            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
