@@ -84,7 +84,7 @@ public class AnswerDetailServlet extends HttpServlet {
             
             Survey survey = SurveyManagement.getSurveyById(surveyID);
             request.setAttribute("survey", survey);
-            
+            request.setAttribute("submitter", submitter);
             RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/answers.jsp");
             dispatcher.forward(request, response);
         } catch (MyException ex) {

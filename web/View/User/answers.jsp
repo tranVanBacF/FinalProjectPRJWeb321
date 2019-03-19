@@ -14,17 +14,20 @@
     </head>
     <body>
         <jsp:include page="../Menu.jsp"/>
-        <h1 style="text-align: center">${survey.getName()}</h1>
+        <h3 style="text-align: center; color: red">Submit of ${submitter}</h3>
         <br>
-        <h2 style="text-align: center">${survey.getDescription()}</h2>
+        <h1 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getName()}</h1>
+        <br>
+        <h2 style="text-align: center; color: #A0FF77; font-family: sans-serif">${survey.getDescription()}</h2>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
         </c:if>
-        <table style="width: 40%">
+        <table style="width: 80%; margin-left: auto; margin-right: auto">
             <c:forEach items="${answers}" var="answer">
             <tr>
                 <th>${questions[answer.getQuestion() - 1].getContent()}</th>
                 <th>${answer.getAnswer()}</th>
+                <th>${answer.getSubmitDate()}</th>
             </tr>
             </c:forEach>
         </table>
