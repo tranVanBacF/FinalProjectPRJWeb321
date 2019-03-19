@@ -10,12 +10,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Submitters of survey</title>
+        <style>
+            table{
+                font-family: sans-serif;
+                width: 80%;
+            }
+            th, td {
+                
+                font-size: 30;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../Menu.jsp"/>
-        <h1 style="text-align: center">${survey.getName()}</h1>
         <br>
-        <h2 style="text-align: center">${survey.getDescription()}</h2>
+        <h1 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getName()}</h1>
+        <br>
+        <h2 style="text-align: center; color: #A0FF77; font-family: sans-serif">${survey.getDescription()}</h2>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
         </c:if>
@@ -23,11 +34,16 @@
             <h2>Your survey don't have any submit</h2>;
         </c:if>
         <c:if test="${!submitters.isEmpty()}">
-            <table style="width: 40%">
+            <table>
+                <tr>
+                    <th><h3>Submitter</h3></th>
+                    <th></th>
+                    
+                </tr>
                 <c:forEach items="${submitters}" var="submitter">
                 <tr>
                     <th><span style="text-decoration: orangered">${submitter}</span></th>
-                    <th><a href="answers?survey=${survey.getId()}&submitter=${submitter}">Show</a></th>
+                    <th><a href="answers?survey=${survey.getId()}&submitter=${submitter}">Show!</a></th>
                 </tr>
                 </c:forEach>
             </table>

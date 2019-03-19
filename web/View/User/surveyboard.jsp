@@ -13,9 +13,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Survey Board</title>
         <style>
-            table, th, td {
+            table{
                 border: 1px solid black;
                 border-collapse: collapse;
+                border-color: #A0FF77; 
+                width: 100%;
+                font-family: sans-serif;
+            }
+            th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                border-color: #A0FF77; 
+                font-size: 30;
             }
             button {
                 background-color: #4CAF50;
@@ -29,11 +38,18 @@
                 margin: 4px 2px;
                 cursor: pointer;
             }
+            form {
+                display: inline;
+            }
+            a {
+              text-decoration: none;
+            }
         </style>
     </head>
     <body>
         <jsp:include page="../Menu.jsp"/>
         <button onclick="window.location.href = 'link to open'" style="margin-left: auto; margin-right: auto; display: block">Add new Survey</button>
+        <br>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
         </c:if>
@@ -41,22 +57,28 @@
             <h2>You current don't have any survey</h2>;
         </c:if>
         <c:if test="${!surveys.isEmpty()}">
-            <table style="width: 100%">
-                <tr>
-                <th style="font-style: oblique">Name</th>
-                <th style="font-style: oblique">Description</th>
-                <th style="font-style: oblique">Link</th>
-                <th style="font-style: oblique">Status</th>
-                <th style="font-style: oblique">Action</th>
+            <table>
+            <tr>
+                <th style="color: #ffffff">Name</th>
+                <th style="color: #ffffff">Description</th>
+                <th style="color: #ffffff">Link</th>
+                <th style="color: #ffffff">Status</th>
+                <th style="color: #ffffff">Action</th>
             </tr>
             <c:forEach items="${surveys}" var="survey">
                 <tr>
-                    <th style="font-style: oblique">${survey.getName()}</th>
-                    <th style="font-style: oblique">${survey.getDescription()}</th>
+                    <th>${survey.getName()}</th>
+                    <th>${survey.getDescription()}</th>
                     <th style="font-style: oblique">
-                        <a href="submitters?id=${survey.getId()}" >${survey.getLink()}</a>
+                        <c:if test="${not empty survey.getLink()}">
+                            <a href="submitters?id=${survey.getId()}" >${survey.getLink()}</a>
+                        </c:if>
+                        <c:if test="${empty survey.getLink()}">
+                            Unavailable
+                        </c:if>
+                            
                     </th>
-                    <th style="font-style: oblique">
+                    <th>
                         <c:if test="${survey.getStatus() == 0}">
                             <span style="color: orange">Created</span>
                         </c:if>
@@ -67,7 +89,7 @@
                             <span style="color: red">Stopped</span>
                         </c:if>
                     </th>
-                    <th style="font-style: oblique">
+                    <th>
                         <form action="change_status" method="POST">
                             <input name="survey" value="${survey.getId()}" hidden/>
                             <c:if test="${survey.getStatus() == 0}">
@@ -88,10 +110,10 @@
                                 <input type="submit" value="Stop"/>
                             </c:if>
                         </form>
-                            <a style="font-size: 20" href="">Edit</a>
+                            <br>
+                        <a style="font-size: 20; color: blue" href="">Edit</a>
                     </th>
                 </tr>
-
             </c:forEach>
             </table>
         </c:if>
