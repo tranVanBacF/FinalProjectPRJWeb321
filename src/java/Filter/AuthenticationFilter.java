@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author bactv
  */
-@WebFilter(urlPatterns = {""})
+@WebFilter(urlPatterns = {"/*"})
 public class AuthenticationFilter implements Filter {
 
     @Override

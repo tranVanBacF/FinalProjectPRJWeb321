@@ -70,7 +70,13 @@
                     <th>${survey.getName()}</th>
                     <th>${survey.getDescription()}</th>
                     <th style="font-style: oblique">
-                        <a href="submitters?id=${survey.getId()}" >${survey.getLink()}</a>
+                        <c:if test="${not empty survey.getLink()}">
+                            <a href="submitters?id=${survey.getId()}" >${survey.getLink()}</a>
+                        </c:if>
+                        <c:if test="${empty survey.getLink()}">
+                            Unavailable
+                        </c:if>
+                            
                     </th>
                     <th>
                         <c:if test="${survey.getStatus() == 0}">

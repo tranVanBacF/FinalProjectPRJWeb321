@@ -22,7 +22,7 @@
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
         </c:if>
-        <table style="width: 80%; margin-left: auto; margin-right: auto">
+        <table style="width: 80%; margin-left: auto; margin-right: auto; font-family: sans-serif">
             <c:forEach items="${answers}" var="answer">
             <tr>
                 <th>${questions[answer.getQuestion() - 1].getContent()}</th>
