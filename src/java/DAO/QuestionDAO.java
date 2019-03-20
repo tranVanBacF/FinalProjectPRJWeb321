@@ -76,6 +76,33 @@ public class QuestionDAO {
         }
         return listQuestion;
     }
+    public static Question getQuestionByID(int id) throws MyException {
+        // create list to save Question
+        //List<Question> listQuestion = new ArrayList<>();
+        // create connection
+        Connection conn = DBConnection.createConnection();
+        // select statement to take all Question in  Questions table
+        String sql = "select * from Questions\n"
+                + "where id = ? ";
+        PreparedStatement ptml;
+        try {
+            ptml = conn.prepareStatement(sql);
+            ptml.setInt(1, id);
+            // user ResultSet Object to save all rows after select
+            ResultSet rs = ptml.executeQuery();
+
+            while (rs.next()) {// check if rs has element
+                return (new Question(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4)));
+            }
+
+            rs.close();
+            // close connection
+            conn.close();
+        } catch (SQLException ex) {
+            throw new MyException(4005, ex);
+        }
+        return null;
+    }
 //    // test
 //       public static void main(String[] args) {
 //          List<Question> listQuestion = getQuestion(1);
@@ -115,4 +142,32 @@ public class QuestionDAO {
         }
         return questions;
     }
+    
+    public static boolean updateQuestion(Question que) throws MyException {
+        // create connection 
+        Connection conn = DBConnection.createConnection();
+        try {
+            PreparedStatement ptml = null;
+            String sql = "UPDATE Questions \n"
+                    + "set Content =? , CreatedDate = ?\n"
+                    + "where id = ?";
+            //
+            ptml = conn.prepareStatement(sql);
+
+            ptml.setString(1, que.getContent());
+            ptml.setDate(2, que.getCraetedDate());
+            ptml.setInt(3, que.getId());
+
+            int kt = ptml.executeUpdate();
+            if (kt != 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            throw new MyException(4004, ex);
+        }
+        return false;
+    }
+
+    
 }

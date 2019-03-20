@@ -48,7 +48,7 @@
     </head>
     <body>
         <jsp:include page="../Menu.jsp"/>
-        <button onclick="window.location.href = 'link to open'" style="margin-left: auto; margin-right: auto; display: block">Add new Survey</button>
+        <button onclick="window.location.href = 'createSurvey'" style="margin-left: auto; margin-right: auto; display: block">Add new Survey</button>
         <br>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>

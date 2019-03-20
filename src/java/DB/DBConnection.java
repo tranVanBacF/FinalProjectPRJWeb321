@@ -19,10 +19,10 @@ public class DBConnection {
     public static Connection createConnection() throws MyException {
         Connection conn = null;
         String serverName = "localhost";
-        String dbName = "Survey1";
+        String dbName = "Survey";
         String portNumber = "1433";
         String userID = "sa";
-        String password = "abc123";
+        String password = "tranviet1998";
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
         try {
 

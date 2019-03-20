@@ -17,15 +17,25 @@ import java.util.List;
  * @author bactv
  */
 public class QuestionManagement {
-    public static boolean insertQuestion(Question question) throws MyException{
+
+    public static boolean insertQuestion(Question question) throws MyException {
         return QuestionDAO.insertQuestion(question);
     }
-    public static List<Question> getQuestion(int surveyID) throws MyException{
+
+    public static List<Question> getQuestion(int surveyID) throws MyException {
         return QuestionDAO.getQuestion(surveyID);
-    } 
+    }
 
     public static List<Question> getQuestionsBySurvey(int surveyID) throws MyException {
         return QuestionDAO.getQuestionsBySurvey(surveyID);
+    }
+
+    public static boolean updateQuestion(Question question) throws MyException {
+        return QuestionDAO.updateQuestion(question);
+    }
+
+    public static Question getQuestionByID(int id) throws MyException {
+        return QuestionDAO.getQuestionByID(id);
     }
 
 }
