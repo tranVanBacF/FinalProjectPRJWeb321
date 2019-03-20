@@ -96,7 +96,7 @@ public class createSurvey extends HttpServlet {
             String user = request.getParameter("user");
             String date = request.getParameter("date");
             String link = request.getParameter("link");
-            if (name == null || name.equals("") || description == null || description.equals("") || user == null || user.equals("") || date == null || date.equals("") || link == null || link.equals("")) {
+            if (name == null || name.equals("") || description == null || description.equals("") || user == null || user.equals("") || date == null || date.equals("")) {
                 error = "Do not getParamater Succesful! Some paramater is NUll!";
                 request.setAttribute("error", error);
                 doGet(request, response);
@@ -108,6 +108,7 @@ public class createSurvey extends HttpServlet {
                     request.setAttribute("error", error);
                     doGet(request, response);
                 } else {
+                    System.out.println("Send redirect to surveys");
                     response.sendRedirect("surveys");// survey nay la servlet survey cua dung
                 }
             }

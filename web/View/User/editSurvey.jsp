@@ -28,7 +28,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Time</th>
-                                <th>Content</th>
+                                <th>Question</th>
                                 <th>Action</th>
                             </tr>
                             <c:forEach items="${questions}" var="list">

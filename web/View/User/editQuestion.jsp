@@ -21,18 +21,17 @@
             <div class="w3-dark-grey w3-container" style="height:700px">
                 <div class="w3-padding-64 w3-padding-large">
                     <h1>Edit Question</h1>
-                    <p class="w3-opacity">GET IN TOUCH</p>
+                    <!--<p class="w3-opacity">GET IN TOUCH</p>-->
                     <form class="w3-container w3-card w3-padding-32 w3-white" action="editQuestion" method="POST">
+                        <c:if test="${not empty questions}">
                         <div class="w3-section">
-                            <label>Description</label>
-                            <c:if test="${ not empty questions}">
-                                <input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description" value=${questions.content} >
-
-                            </c:if>
-                            <c:if test="${empty questions}">
-                                <input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description"  >
-                            </c:if>
+                        <label>Description</label>
+                                <input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description" value=${questions.getContent()} />
                         </div>
+                        </c:if>
+                                <!--<c:if test="${empty questions}">-->
+                                <!--<input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description"  >-->
+                            <!--</c:if>-->
                         <div class="w3-section">
                             <label>Date</label>
                             <input class="w3-input" style="width:100%;" type="text" name="date" id="day" readonly>

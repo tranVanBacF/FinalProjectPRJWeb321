@@ -66,7 +66,7 @@ public class editSurvey extends HttpServlet {
         int id;
         String error = "";
         try {
-            String idSurvey = "13";//request.getParameter("idSurvey");// cho nay khi khung bam edit cuar trang survey thi gui idSurvey xang
+            String idSurvey = request.getParameter("id");//request.getParameter("idSurvey");// cho nay khi khung bam edit cuar trang survey thi gui idSurvey xang
             if (idSurvey == null || idSurvey.equals("")) {
                 error = "IdSurvey Not Available!";
                 request.setAttribute("error", error);

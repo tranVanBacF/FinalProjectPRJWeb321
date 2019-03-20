@@ -111,7 +111,7 @@
                             </c:if>
                         </form>
                             <br>
-                        <a style="font-size: 20; color: blue" href="">Edit</a>
+                        <a style="font-size: 20; color: blue" href="editSurvey?id=${survey.getId()}">Edit</a>
                     </th>
                 </tr>
             </c:forEach>
@@ -129,7 +129,7 @@
             }
 
             function edit(id) {
-                location.replace("edit?id=" + id);
+                location.replace("" + id);
             }
 
             function changeStatus(survey, id) {

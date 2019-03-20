@@ -35,14 +35,13 @@
                             <input class="w3-input" style="width:100%;" type="text" name="date" id="day" readonly>
                         </div>
                         <c:if test="${ not empty sessionScope.user}">
-                            <input type="text" name="user" value=${sessionScope.user.getUsername()}>
+                            <input type="hidden" name="user" value=${sessionScope.user.getUsername()}>
 
                         </c:if>
                         <c:if test="${  empty sessionScope.user}">
-                            <input type="text" name="user" >
-
+                            <input type="hidden" name="user" >
                         </c:if>
-                        <input type="text" name="link" value="dgs">
+                        <input type="hidden" name="link" value="">
                         <button type="submit" class="w3-button w3-teal w3-right">Send</button>
                     </form>
                 </div>
