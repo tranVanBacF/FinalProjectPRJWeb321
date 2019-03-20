@@ -22,4 +22,7 @@ public class AnswerManagement {
     public static List<Answer> getAnswerOfSubmitterInSurvey(int surveyID, String submitter) throws MyException {
         return AnswerDAO.getAnswerOfSubmitterInSurvey(surveyID, submitter);
     }
+    public static boolean insertAnswer(Answer answer) throws MyException {
+        return AnswerDAO.insertAnswer(answer);
+    }
 }

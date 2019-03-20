@@ -18,6 +18,7 @@ public class Answer {
         this.answer = answer;
         this.submitter = submitter;
         this.submitDate = submitDate;
+        this.id=0;
     }
 
 // constructor is used when get answer from database
