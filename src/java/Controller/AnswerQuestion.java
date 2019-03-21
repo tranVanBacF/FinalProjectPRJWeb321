@@ -44,7 +44,7 @@ public class AnswerQuestion extends HttpServlet {
             // get session
             HttpSession session = request.getSession();
 
-/
+
             // get id survey
             String idSurvey = request.getParameter("id");
             int idSurveyNumber = Integer.parseInt(idSurvey);
