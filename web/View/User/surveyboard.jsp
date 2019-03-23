@@ -122,24 +122,5 @@
             </c:forEach>
             </table>
         </c:if>
-        <script>
-            function deleteprd(id) {
-                var txt;
-                var r = confirm("Are you sure to delete!");
-                if (r == true) {
-                    location.replace("delete?id=" + id);
-                } else {
-                    location.replace("home");
-                }
-            }
-
-            function edit(id) {
-                location.replace("" + id);
-            }
-
-            function changeStatus(survey, id) {
-                location.replace("surveys/change_status?survey=" + survey + "&status=" + id);
-            }
-        </script>
     </body>
 </html>

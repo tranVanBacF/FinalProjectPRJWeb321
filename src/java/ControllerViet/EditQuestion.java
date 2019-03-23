@@ -113,7 +113,8 @@ public class EditQuestion extends HttpServlet {
             throws ServletException, IOException {
         String error = "";
         int ids;
-        int idSurveys = 0;
+        String surveyID = (String) request.getSession().getAttribute("surveyId");
+        int idSurveys = Integer.valueOf(surveyID);
         try {
             String id = request.getParameter("id");
             String content = request.getParameter("description");
@@ -142,7 +143,7 @@ public class EditQuestion extends HttpServlet {
                     View.forward(request, response);
                     return;
                 } else {
-                    response.sendRedirect("editSurvey?id=" + id);
+                    response.sendRedirect("editSurvey?id=" + surveyID);
                 }
             }
         } catch (Exception ex) {
