@@ -68,7 +68,7 @@ public class SurveyManagementBoardServlet extends HttpServlet {
         
         List<Survey> surveys;
         try {
-            surveys = SurveyManagement.getSurveysByUsername("ha");
+            surveys = SurveyManagement.getSurveysByUsername(user.getUsername());
             request.setAttribute("surveys", surveys);
             System.out.println("Come here");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
