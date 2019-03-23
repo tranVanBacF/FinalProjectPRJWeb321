@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller_Viet;
+package ControllerViet;
 
-import DAO.ConvertStringToDateDAO;
-import Entity.Survey;
-import ManagementDAO.SurveyManagement;
+import Entity.Question;
+import Exception.MyException;
+import ManagementDAO.QuestionManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TranViet
  */
-@WebServlet(name = "createSurvey", urlPatterns = {"/createSurvey"})
-public class createSurvey extends HttpServlet {
+@WebServlet(name = "editSurvey", urlPatterns = {"/editSurvey"})
+public class EditSurvey extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +42,10 @@ public class createSurvey extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createSurvey</title>");
+            out.println("<title>Servlet editSurvey</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createSurvey at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet editSurvey at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,18 +63,51 @@ public class createSurvey extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String error = "";
         int id;
+        String error = "";
         try {
-            //HttpSession session = request.getSession();
-            //User user = (User) session.getAttribute("user");
-            RequestDispatcher view = request.getRequestDispatcher("View/User/createSurvey.jsp");
-            view.forward(request, response);
-        } catch (IOException | ServletException ex) {
+            String idSurvey = request.getParameter("id");//request.getParameter("idSurvey");// cho nay khi khung bam edit cuar trang survey thi gui idSurvey xang
+            if (idSurvey == null || idSurvey.equals("")) {
+                System.out.println("Come here 1");
+                error = "IdSurvey Not Available!";
+                request.setAttribute("error", error);
+                RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
+                View.forward(request, response);
+                return;
+            } else {
+                System.out.println("Come here 2");
+                try {
+                    id = Integer.parseInt(idSurvey);
+                } catch (NumberFormatException ee) {
+                    error = "NumberFormatException, IdSurvey Not ParseInt!";
+                    request.setAttribute("error", error);
+                    RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
+                    View.forward(request, response);
+                    return;
+                }
+            }
+
+            try {
+                System.out.println("Come here 3");
+                QuestionManagement manageQuestionDAO = new QuestionManagement();
+                List<Question> questions = manageQuestionDAO.getQuestion(id);
+                request.setAttribute("questions", questions);
+                request.getSession().setAttribute("surveyId", idSurvey);
+                RequestDispatcher View = request.getRequestDispatcher("View/User/editSurvey.jsp");
+                View.forward(request, response);
+            } catch (MyException ex) {
+                error = "ManageQuestionDAO Error!";
+                request.setAttribute("error", error);
+                RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
+                View.forward(request, response);
+                return;
+            }
+
+        } catch (Exception e) {
             error = "Do Not Load DOGET Succesful!";
             request.setAttribute("error", error);
-            RequestDispatcher view = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-            view.forward(request, response);
+            RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
+            View.forward(request, response);
             return;
         }
     }
@@ -89,34 +123,7 @@ public class createSurvey extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String error = "";
-        try {
-            String name = request.getParameter("name");
-            String description = request.getParameter("description");
-            String user = request.getParameter("user");
-            String date = request.getParameter("date");
-            String link = request.getParameter("link");
-            if (name == null || name.equals("") || description == null || description.equals("") || user == null || user.equals("") || date == null || date.equals("")) {
-                error = "Do not getParamater Succesful! Some paramater is NUll!";
-                request.setAttribute("error", error);
-                doGet(request, response);
-                return;
-            } else {
-                boolean insertServeyStatus = SurveyManagement.insertSurvey(new Survey(name, description, user, ConvertStringToDateDAO.StringToSqlDate(date), link));
-                if (insertServeyStatus == false) {
-                    error = "Do not insert Servey Succesful!";
-                    request.setAttribute("error", error);
-                    doGet(request, response);
-                } else {
-                    System.out.println("Send redirect to surveys");
-                    response.sendRedirect("surveys");// survey nay la servlet survey cua dung
-                }
-            }
-        } catch (Exception ex) {
-            error = "POST is not available, Do not getParamater Succesful!";
-            request.setAttribute("error", error);
-            doGet(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

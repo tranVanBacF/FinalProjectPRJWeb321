@@ -53,7 +53,7 @@
     <body>
         <ul>
             <li><a class="active" href="/14_ProjectFinalPRJ321/View/Home.jsp">Home</a></li>
-            <li><a  href="/14_ProjectFinalPRJ321/View/User/Other.jsp">Manage Survey</a></li>
+            <li><a  href="/14_ProjectFinalPRJ321/surveys">Manage Survey</a></li>
                 <c:if test="${empty sessionScope.user}">
                 <li><a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a></li>
                 <li> <a href="/14_ProjectFinalPRJ321/View/Register/Register.jsp">Register</a></li>
@@ -70,7 +70,7 @@
 
         <p>
             <a href="/14_ProjectFinalPRJ321/View/Home.jsp">Home</a>
-            <a href="/14_ProjectFinalPRJ321/View/User/Other.jsp">Manage Survey</a>
+            <a href="/14_ProjectFinalPRJ321/surveys">Manage Survey</a>
             <c:if test="${empty sessionScope.user}">
                 <a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a>
                 <a href="/14_ProjectFinalPRJ321/View/Register/Register.jsp">Register</a>

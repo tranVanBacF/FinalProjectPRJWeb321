@@ -111,7 +111,12 @@
                             </c:if>
                         </form>
                             <br>
-                        <a style="font-size: 20; color: blue" href="editSurvey?id=${survey.getId()}">Edit</a>
+                            <c:if test="${survey.getStatus() == 0}">
+                                <a style="font-size: 20; color: blue" href="editSurvey?id=${survey.getId()}">Edit</a>
+                            </c:if>
+                            <c:if test="${!(survey.getStatus() == 0)}">
+                                <a style="pointer-events: none; display: inline-block;" href="#">Edit</a>
+                            </c:if>
                     </th>
                 </tr>
             </c:forEach>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller_Viet;
+package ControllerViet;
 
 import DAO.ConvertStringToDateDAO;
 import Entity.Question;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author TranViet
  */
 @WebServlet(name = "insertQuestion", urlPatterns = {"/insertQuestion"})
-public class insertQuestion extends HttpServlet {
+public class InsertQuestion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,38 +62,8 @@ public class insertQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id;
-        String error = "";
-        try {
-            String idSurvey = "13";// request.getParameter("id");
-            if (idSurvey == null || idSurvey.equals("")) {
-                error = "IdSurvey Not Available!";
-                request.setAttribute("error", error);
-                RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-                View.forward(request, response);
-                return;
-            } else {
-                try {
-                    id = Integer.parseInt(idSurvey);
-                    request.setAttribute("id", id);
-                    RequestDispatcher View = request.getRequestDispatcher("View/User/insertQuestion.jsp");
-                    View.forward(request, response);
-                    return;
-                } catch (Exception e) {
-                    error = "NumberFormatException, IdSurvey Not ParseInt!";
-                    request.setAttribute("error", error);
-                    RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-                    View.forward(request, response);
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            error = "Do Not Load DOGET Succesful!";
-            request.setAttribute("error", error);
-            RequestDispatcher View = request.getRequestDispatcher("View/User/errorPage.jsp");
+            RequestDispatcher View = request.getRequestDispatcher("View/User/insertQuestion.jsp");
             View.forward(request, response);
-            return;
-        }
     }
 
     /**
@@ -110,7 +80,7 @@ public class insertQuestion extends HttpServlet {
         String error = "";
         int id = 0;
         try {
-            String idSurvey = request.getParameter("id");
+            String idSurvey = (String) request.getSession().getAttribute("surveyId");
             String content = request.getParameter("content");
             String date = request.getParameter("date");
             if (idSurvey == null || idSurvey.equals("") || content == null || content.equals("") || date == null || date.equals("")) {
@@ -137,7 +107,7 @@ public class insertQuestion extends HttpServlet {
                     View.forward(request, response);
                     return;
                 } else {
-                    response.sendRedirect("editSurvey");
+                    response.sendRedirect("editSurvey?id=" + idSurvey);
                 }
             }
         } catch (Exception ex) {

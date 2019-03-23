@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package ControllerViet;
 
-import Entity.User;
-import Exception.MyException;
-import ManagementDAO.ManageUserDAO;
+import DAO.ConvertStringToDateDAO;
+import Entity.Survey;
+import ManagementDAO.SurveyManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author bactv
+ * @author TranViet
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "createSurvey", urlPatterns = {"/createSurvey"})
+public class CreateSurvey extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +41,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet createSurvey</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet createSurvey at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,9 +62,20 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // brower to home.jsp
-        response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
-        return;
+        String error = "";
+        int id;
+        try {
+            //HttpSession session = request.getSession();
+            //User user = (User) session.getAttribute("user");
+            RequestDispatcher view = request.getRequestDispatcher("View/User/createSurvey.jsp");
+            view.forward(request, response);
+        } catch (IOException | ServletException ex) {
+            error = "Do Not Load DOGET Succesful!";
+            request.setAttribute("error", error);
+            RequestDispatcher view = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
+            view.forward(request, response);
+            return;
+        }
     }
 
     /**
@@ -80,36 +89,34 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean error = false;// check error
-        String userName = request.getParameter("userName");
-        String passWord = request.getParameter("passWord");
-        // get session
-        HttpSession session = request.getSession();
+        String error = "";
         try {
-
-            // check user exist or not
-            User user = ManageUserDAO.getOneUser(userName);
-            if (user == null) {
-                error = true;
-                session.setAttribute("loginError", "userName: " + userName + "  doesn't exist");
-            } else if (!passWord.equals(user.getPassword())) {// if wrong pass word
-                error = true;
-                session.setAttribute("userName", userName);
-                session.setAttribute("loginError", "passWord wrong");
-            }
-            if (error) {
-                // wrong  redirect to login
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
-
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            String user = request.getParameter("user");
+            String date = request.getParameter("date");
+            String link = request.getParameter("link");
+            if (name == null || name.equals("") || description == null || description.equals("") || user == null || user.equals("") || date == null || date.equals("")) {
+                error = "Do not getParamater Succesful! Some paramater is NUll!";
+                request.setAttribute("error", error);
+                doGet(request, response);
+                return;
             } else {
-                session.setAttribute("user", user);
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+                boolean insertServeyStatus = SurveyManagement.insertSurvey(new Survey(name, description, user, ConvertStringToDateDAO.StringToSqlDate(date), link));
+                if (insertServeyStatus == false) {
+                    error = "Do not insert Servey Succesful!";
+                    request.setAttribute("error", error);
+                    doGet(request, response);
+                } else {
+                    System.out.println("Send redirect to surveys");
+                    response.sendRedirect("surveys");// survey nay la servlet survey cua dung
+                }
             }
-        } catch (MyException ex) {
-            session.setAttribute("MyException", ex);
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+        } catch (Exception ex) {
+            error = "POST is not available, Do not getParamater Succesful!";
+            request.setAttribute("error", error);
+            doGet(request, response);
         }
-
     }
 
     /**

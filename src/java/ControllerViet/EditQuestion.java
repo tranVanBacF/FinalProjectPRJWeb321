@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller_Viet;
+package ControllerViet;
 
 import DAO.ConvertStringToDateDAO;
 import Entity.Question;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author TranViet
  */
 @WebServlet(name = "editQuestion", urlPatterns = {"/editQuestion"})
-public class editQuestion extends HttpServlet {
+public class EditQuestion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +71,7 @@ public class editQuestion extends HttpServlet {
             if (id == null || id.equals("")) {
                 error = "IdSurvey Not Available!";
                 request.setAttribute("error", error);
-                RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
+                RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
                 View.forward(request, response);
                 return;
             } else {
@@ -86,7 +86,7 @@ public class editQuestion extends HttpServlet {
                 } catch (NumberFormatException ee) {
                     error = "NumberFormatException, ID or IdSurvey Not ParseInt!";
                     request.setAttribute("error", error);
-                    RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
+                    RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
                     View.forward(request, response);
                     return;
                 }
@@ -142,7 +142,7 @@ public class editQuestion extends HttpServlet {
                     View.forward(request, response);
                     return;
                 } else {
-                    response.sendRedirect("editSurvey");
+                    response.sendRedirect("editSurvey?id=" + id);
                 }
             }
         } catch (Exception ex) {

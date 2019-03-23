@@ -37,7 +37,6 @@
                                 <input class="w3-input w3-border" type="text" placeholder="YYYY MM DD" name="date" id="day" readonly>
                             </div>
                         </div>
-                        <input type="hidden" name="id" value=${id} readonly>
                         <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Submit</button>
                     </form>
                 </div>

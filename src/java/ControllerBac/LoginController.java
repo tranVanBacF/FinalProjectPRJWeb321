@@ -3,27 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller_Viet;
+package ControllerBac;
 
-import Entity.Question;
+import Entity.User;
 import Exception.MyException;
-import ManagementDAO.QuestionManagement;
+import ManagementDAO.ManageUserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author TranViet
+ * @author bactv
  */
-@WebServlet(name = "editSurvey", urlPatterns = {"/editSurvey"})
-public class editSurvey extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +43,10 @@ public class editSurvey extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet editSurvey</title>");
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet editSurvey at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,49 +64,9 @@ public class editSurvey extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id;
-        String error = "";
-        try {
-            String idSurvey = request.getParameter("id");//request.getParameter("idSurvey");// cho nay khi khung bam edit cuar trang survey thi gui idSurvey xang
-            if (idSurvey == null || idSurvey.equals("")) {
-                error = "IdSurvey Not Available!";
-                request.setAttribute("error", error);
-                RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-                View.forward(request, response);
-                return;
-            } else {
-                try {
-                    id = Integer.parseInt(idSurvey);
-                } catch (NumberFormatException ee) {
-                    error = "NumberFormatException, IdSurvey Not ParseInt!";
-                    request.setAttribute("error", error);
-                    RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-                    View.forward(request, response);
-                    return;
-                }
-            }
-
-            try {
-                QuestionManagement manageQuestionDAO = new QuestionManagement();
-                List<Question> questions = manageQuestionDAO.getQuestion(id);
-                request.setAttribute("questions", questions);
-                RequestDispatcher View = request.getRequestDispatcher("View/User/editSurvey.jsp");
-                View.forward(request, response);
-            } catch (MyException ex) {
-                error = "ManageQuestionDAO Error!";
-                request.setAttribute("error", error);
-                RequestDispatcher View = request.getRequestDispatcher("View/Exceptions/errorPage.jsp");
-                View.forward(request, response);
-                return;
-            }
-
-        } catch (Exception e) {
-            error = "Do Not Load DOGET Succesful!";
-            request.setAttribute("error", error);
-            RequestDispatcher View = request.getRequestDispatcher("View/User/errorPage.jsp");
-            View.forward(request, response);
-            return;
-        }
+        // brower to home.jsp
+        response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+        return;
     }
 
     /**
@@ -119,7 +80,36 @@ public class editSurvey extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        boolean error = false;// check error
+        String userName = request.getParameter("userName");
+        String passWord = request.getParameter("passWord");
+        // get session
+        HttpSession session = request.getSession();
+        try {
+
+            // check user exist or not
+            User user = ManageUserDAO.getOneUser(userName);
+            if (user == null) {
+                error = true;
+                session.setAttribute("loginError", "userName: " + userName + "  doesn't exist");
+            } else if (!passWord.equals(user.getPassword())) {// if wrong pass word
+                error = true;
+                session.setAttribute("userName", userName);
+                session.setAttribute("loginError", "passWord wrong");
+            }
+            if (error) {
+                // wrong  redirect to login
+                response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+
+            } else {
+                session.setAttribute("user", user);
+                response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+            }
+        } catch (MyException ex) {
+            session.setAttribute("MyException", ex);
+            response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+        }
+
     }
 
     /**
