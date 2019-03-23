@@ -86,20 +86,7 @@ public class SurveyDAO {
 
     }
 
-//    public static void main(String[] args) {
-//        // insert
-//        System.out.println(insertSurvey(new Survey("hai", "adfsfd", "dungnv", ConvertStringToDateDAO.StringToSqlDate("2019-02-22"), "adsfd")));
-//        List<Survey> listSurvey = getSurvey("dungnv");
-//        
-//        for (Survey survey : listSurvey) {
-//            System.out.println(survey);
-//            System.out.println(survey.getLink());
-//            System.out.println(survey.getUser());
-//            System.out.println(survey.getCreatedDate());
-//            System.out.println(survey.getStatus());
-//
-//        }
-//    }
+
     public static boolean setStatusBySurveyId(int surveyID, int status) throws MyException {
         //Create connection to database
         Connection conn = DBConnection.createConnection();
@@ -112,6 +99,31 @@ public class SurveyDAO {
             ptml = conn.prepareStatement(sql);
 
             ptml.setInt(1, status);
+            ptml.setInt(2, surveyID);
+
+            int check = ptml.executeUpdate();
+            // check if excutre succesful return true
+            if (check != 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            throw new MyException(3003, ex);
+        }
+        return false;
+    }
+     public static boolean setLinkBySurveyId(int surveyID, String  Link) throws MyException {
+        //Create connection to database
+        Connection conn = DBConnection.createConnection();
+        try {
+            PreparedStatement ptml = null;
+            //Statement to set Link by survey id
+            String sql = "UPDATE Surveys "
+                    + "SET Link = ? "
+                    + "WHERE id = ?";
+            ptml = conn.prepareStatement(sql);
+
+            ptml.setString(1, Link);
             ptml.setInt(2, surveyID);
 
             int check = ptml.executeUpdate();
@@ -155,5 +167,11 @@ public class SurveyDAO {
         return null;
 
     }
-
+    public static void main(String[] args) {
+        try {
+            System.out.println(setLinkBySurveyId(2, "tran van bac ok"));
+        } catch (MyException ex) {
+            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
