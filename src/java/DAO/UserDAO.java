@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -63,7 +64,8 @@ public class UserDAO {
             ptml.setString(1, user.getName());
             ptml.setString(2, user.getEmail());
             ptml.setDate(3, user.getBirthday());
-            ptml.setDate(4, user.getRegistrationDate());
+             ptml.setTimestamp(4, new Timestamp( new java.util.Date().getTime()));
+           // ptml.setDate(4, user.getRegistrationDate());
             ptml.setString(5, user.getUsername());
             ptml.setString(6, user.getPassword());
 

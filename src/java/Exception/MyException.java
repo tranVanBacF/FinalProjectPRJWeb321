@@ -75,6 +75,10 @@ public class MyException extends Exception {
                 message = "Can't get answers of survey, try again!!!";
                 break;
             }
+            case 5003:{
+                message =" Can't insert  answer of submitter, try again!!!";
+                break;
+            }
             default: 
                 message = "There are some problem";
         }

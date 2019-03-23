@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +41,8 @@ public class SurveyDAO {
             ptml.setString(2, survey.getDescription());
             ptml.setString(3, survey.getUser());
             ptml.setInt(4, survey.getStatus());
-            ptml.setDate(5, survey.getCreatedDate());
+            ptml.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
+            // ptml.setDate(5, survey.getCreatedDate());
             ptml.setString(6, survey.getLink());
 
             int kt = ptml.executeUpdate();
@@ -98,21 +100,20 @@ public class SurveyDAO {
 //
 //        }
 //    }
-
     public static boolean setStatusBySurveyId(int surveyID, int status) throws MyException {
         //Create connection to database
         Connection conn = DBConnection.createConnection();
         try {
             PreparedStatement ptml = null;
             //Statement to set status by survey id
-            String sql = "UPDATE Surveys " +
-                "SET Status = ? " +
-                "WHERE id = ?";
+            String sql = "UPDATE Surveys "
+                    + "SET Status = ? "
+                    + "WHERE id = ?";
             ptml = conn.prepareStatement(sql);
 
             ptml.setInt(1, status);
             ptml.setInt(2, surveyID);
-            
+
             int check = ptml.executeUpdate();
             // check if excutre succesful return true
             if (check != 0) {
@@ -126,13 +127,13 @@ public class SurveyDAO {
     }
 
     public static Survey getSurveyById(int surveyID) throws MyException {
-                        
+
         // create connection
         Connection conn = DBConnection.createConnection();
 
-        String getSurveyByIdStatement = "SELECT *\n" +
-            "FROM Surveys\n" +
-            "WHERE Id = ?";
+        String getSurveyByIdStatement = "SELECT *\n"
+                + "FROM Surveys\n"
+                + "WHERE Id = ?";
 
         PreparedStatement ptml;
         try {
@@ -142,7 +143,7 @@ public class SurveyDAO {
             ResultSet rs = ptml.executeQuery();
 
             while (rs.next()) {// check if rs has element
-                return new  Survey(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
+                return new Survey(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getString(7));
             }
 
             rs.close();
@@ -155,5 +156,4 @@ public class SurveyDAO {
 
     }
 
-    
 }

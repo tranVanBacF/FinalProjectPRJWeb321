@@ -7,6 +7,7 @@ import java.sql.Date;
  * @author DxG
  */
 public class Question {
+    private int orderDisplay;// dung de hien thi thu tu câu hỏi trên form answer
     private int id;
     private int survey;
     private String content;
@@ -21,6 +22,8 @@ public class Question {
         this.survey = survey;
         this.content = content;
         this.craetedDate = craetedDate;
+        // 
+        this.orderDisplay=0;
     }
 // constructor is used when insert question from database
     public Question(int survey, String content, Date craetedDate) {
@@ -28,6 +31,7 @@ public class Question {
         this.survey = survey;
         this.content = content;
         this.craetedDate = craetedDate;
+        this.orderDisplay=0;
     }
     // constructor is used when update question from database
 
@@ -62,6 +66,14 @@ public class Question {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getOrderDisplay() {
+        return orderDisplay;
+    }
+
+    public void setOrderDisplay(int orderDisplay) {
+        this.orderDisplay = orderDisplay;
     }
     
 }
