@@ -64,7 +64,7 @@ public class AnswerQuestion extends HttpServlet {
             response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
 
         } catch (MyException ex) {
-            Logger.getLogger(AnswerQuestion.class.getName()).log(Level.SEVERE, null, ex);
+            response.getWriter().println(ex);
         }
     }
 

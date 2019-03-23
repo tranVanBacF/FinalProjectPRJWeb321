@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,7 +37,8 @@ public class QuestionDAO {
 
             ptml.setInt(1, question.getSurvey());
             ptml.setString(2, question.getContent());
-            ptml.setDate(3, question.getCraetedDate());
+             ptml.setTimestamp(3, new Timestamp( new java.util.Date().getTime()));
+//            ptml.setDate(3, question.getCraetedDate());
 
             int kt = ptml.executeUpdate();
             if (kt != 0) {
