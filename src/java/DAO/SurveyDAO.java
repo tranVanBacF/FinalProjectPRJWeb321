@@ -167,11 +167,5 @@ public class SurveyDAO {
         return null;
 
     }
-    public static void main(String[] args) {
-        try {
-            System.out.println(setLinkBySurveyId(2, "tran van bac ok"));
-        } catch (MyException ex) {
-            Logger.getLogger(SurveyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 }
