@@ -30,6 +30,9 @@ public class SurveyManagement {
     public static Survey getSurveyById(int surveyID) throws MyException {
         return SurveyDAO.getSurveyById(surveyID);
     }
+    public static boolean setLinkBySurveyId(int surveyID, String  Link) throws MyException {
+        return SurveyDAO.setLinkBySurveyId(surveyID, Link);
+    }
 
     
 }

@@ -17,6 +17,7 @@
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </style>
     <body class="w3-light-grey">
+         <jsp:include page="../Menu.jsp"/>
         <header class="w3-display-container w3-content" style="max-width:3000px;">
             <img class="w3-image" src="./View/Image/hotel.jpg" alt="The Hotel" style="min-width:1000px" width="1500" height="800">
             <div class="w3-display-left w3-padding w3-col 30 m12">
