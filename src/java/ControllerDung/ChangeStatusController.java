@@ -1,13 +1,16 @@
 package ControllerDung;
 
-import Entity.Survey;
-import Entity.User;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 import Exception.MyException;
 import ManagementDAO.SurveyManagement;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -16,14 +19,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DxG
  */
-@WebServlet(urlPatterns = {"/surveys"})
-public class SurveyManagementBoardServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/change_status"})
+public class ChangeStatusController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class SurveyManagementBoardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SurveyBoardServlet</title>");            
+            out.println("<title>Servlet ChangeSurveyStatusServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SurveyBoardServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangeSurveyStatusServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,25 +65,9 @@ public class SurveyManagementBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        
-        List<Survey> surveys;
-        try {
-            surveys = SurveyManagement.getSurveysByUsername(user.getUsername());
-            request.setAttribute("surveys", surveys);
-            System.out.println("Come here");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
-            requestDispatcher.forward(request, response);
-            
-        } catch (MyException ex) {
-            request.setAttribute("exception", ex);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
-            requestDispatcher.forward(request, response);
-            return;
-        }
+        processRequest(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -93,9 +79,32 @@ public class SurveyManagementBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        try {
+            String surveyId = request.getParameter("survey");
+            System.out.println("Survey id " + surveyId);
+            int surveyID = Integer.parseInt(surveyId);
+            String statusToChange = request.getParameter("status");
+            System.out.println("Status id " + statusToChange);
+            int status = Integer.valueOf(statusToChange);
+            boolean updateStatusRS = SurveyManagement.setStatusBySurveyId(surveyID, status);
+            String link = "http://localhost:8080/14_ProjectFinalPRJ321/doForm?id=" + surveyId;
+            SurveyManagement.setLinkBySurveyId(surveyID, link);
+            System.out.println("Change status come herer");
+            if (updateStatusRS){
+                response.sendRedirect("surveys");
+            }
+            else{
+                request.setAttribute("err", "Can't set status of survey");
+            }
+        } catch (MyException ex) {
+            request.setAttribute("exception", ex);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
+            requestDispatcher.forward(request, response);
+            return;
+        }
     }
-    
+
     /**
      * Returns a short description of the servlet.
      *

@@ -1,37 +1,29 @@
 package ControllerDung;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import Entity.Survey;
+import Entity.User;
+import Exception.MyException;
+import ManagementDAO.SurveyManagement;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Entity.Answer;
-import Entity.Question;
-import Entity.Survey;
-import Exception.MyException;
-import ManagementDAO.AnswerManagement;
-import ManagementDAO.QuestionManagement;
-import ManagementDAO.SurveyManagement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DxG
  */
-@WebServlet(urlPatterns = {"/answers"})
-public class AnswerDetailServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/surveys"})
+public class SurveysController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +42,10 @@ public class AnswerDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AnswerDetailServlet</title>");            
+            out.println("<title>Servlet SurveyBoardServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AnswerDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SurveyBoardServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,30 +63,25 @@ public class AnswerDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        List<Survey> surveys;
         try {
-            String surveyId = request.getParameter("survey");
-            String submitter = request.getParameter("submitter");
-            int surveyID = Integer.valueOf(surveyId);
+            surveys = SurveyManagement.getSurveysByUsername(user.getUsername());
+            request.setAttribute("surveys", surveys);
+            System.out.println("Come here");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
+            requestDispatcher.forward(request, response);
             
-            List<Answer> answers = AnswerManagement.getAnswerOfSubmitterInSurvey(surveyID, submitter);
-            request.setAttribute("answers", answers);
-            
-            List<Question> questions = QuestionManagement.getQuestionsBySurvey(surveyID);
-            request.setAttribute("questions", questions);
-            
-            Survey survey = SurveyManagement.getSurveyById(surveyID);
-            request.setAttribute("survey", survey);
-            request.setAttribute("submitter", submitter);
-            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/answers.jsp");
-            dispatcher.forward(request, response);
         } catch (MyException ex) {
             request.setAttribute("exception", ex);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
             requestDispatcher.forward(request, response);
             return;
         }
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -108,7 +95,7 @@ public class AnswerDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *

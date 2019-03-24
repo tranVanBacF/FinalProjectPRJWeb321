@@ -15,9 +15,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Entity.Answer;
+import Entity.Question;
 import Entity.Survey;
 import Exception.MyException;
 import ManagementDAO.AnswerManagement;
+import ManagementDAO.QuestionManagement;
 import ManagementDAO.SurveyManagement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +30,8 @@ import java.util.logging.Logger;
  *
  * @author DxG
  */
-@WebServlet(urlPatterns = {"/submitters"})
-public class UserAnswerServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/answers"})
+public class AnswerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +50,10 @@ public class UserAnswerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UserAnswerServlet</title>");            
+            out.println("<title>Servlet AnswerDetailServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UserAnswerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AnswerDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,25 +71,27 @@ public class UserAnswerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         try {
-            String surveyId = request.getParameter("id");
+            String surveyId = request.getParameter("survey");
+            String submitter = request.getParameter("submitter");
             int surveyID = Integer.valueOf(surveyId);
+            
+            List<Answer> answers = AnswerManagement.getAnswerOfSubmitterInSurvey(surveyID, submitter);
+            request.setAttribute("answers", answers);
+            
+            List<Question> questions = QuestionManagement.getQuestionsBySurvey(surveyID);
+            request.setAttribute("questions", questions);
+            
             Survey survey = SurveyManagement.getSurveyById(surveyID);
-            if (survey == null){
-                RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/survey_unavailable.jsp");
-                dispatcher.forward(request, response);
-            }
             request.setAttribute("survey", survey);
-            List<String> submitters = AnswerManagement.getAllSubmittersBySurveyId(surveyID);
-            request.setAttribute("submitters", submitters);
-            System.out.println("Prepared to dispatcher");
-            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
+            request.setAttribute("submitter", submitter);
+            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/answers.jsp");
             dispatcher.forward(request, response);
         } catch (MyException ex) {
             request.setAttribute("exception", ex);
-            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
-            dispatcher.forward(request, response);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
 

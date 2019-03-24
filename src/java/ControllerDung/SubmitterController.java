@@ -6,26 +6,29 @@ package ControllerDung;
  * and open the template in the editor.
  */
 
-
-import Exception.MyException;
-import ManagementDAO.SurveyManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Entity.Survey;
+import Exception.MyException;
+import ManagementDAO.AnswerManagement;
+import ManagementDAO.SurveyManagement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author DxG
  */
-@WebServlet(urlPatterns = {"/change_status"})
-public class ChangeSurveyStatusServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/submitters"})
+public class SubmitterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +47,10 @@ public class ChangeSurveyStatusServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangeSurveyStatusServlet</title>");            
+            out.println("<title>Servlet UserAnswerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangeSurveyStatusServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UserAnswerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +68,26 @@ public class ChangeSurveyStatusServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        try {
+            String surveyId = request.getParameter("id");
+            int surveyID = Integer.valueOf(surveyId);
+            Survey survey = SurveyManagement.getSurveyById(surveyID);
+            if (survey == null){
+                RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/survey_unavailable.jsp");
+                dispatcher.forward(request, response);
+            }
+            request.setAttribute("survey", survey);
+            List<String> submitters = AnswerManagement.getAllSubmittersBySurveyId(surveyID);
+            request.setAttribute("submitters", submitters);
+            System.out.println("Prepared to dispatcher");
+            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
+            dispatcher.forward(request, response);
+        } catch (MyException ex) {
+            request.setAttribute("exception", ex);
+            RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**
@@ -79,28 +101,7 @@ public class ChangeSurveyStatusServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
-            String surveyId = request.getParameter("survey");
-            System.out.println("Survey id " + surveyId);
-            int surveyID = Integer.parseInt(surveyId);
-            String statusToChange = request.getParameter("status");
-            System.out.println("Status id " + statusToChange);
-            int status = Integer.valueOf(statusToChange);
-            boolean updateStatusRS = SurveyManagement.setStatusBySurveyId(surveyID, status);
-            System.out.println("Change status come herer");
-            if (updateStatusRS){
-                response.sendRedirect("surveys");
-            }
-            else{
-                request.setAttribute("err", "Can't set status of survey");
-            }
-        } catch (MyException ex) {
-            request.setAttribute("exception", ex);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/surveyboard.jsp");
-            requestDispatcher.forward(request, response);
-            return;
-        }
+        processRequest(request, response);
     }
 
     /**
