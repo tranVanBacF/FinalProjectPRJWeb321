@@ -75,7 +75,7 @@ public class AuthenticationFilter implements Filter {
             }
 // check when answer and submitt 
 //|| requestPath.contains("/SaveFormUser")
-        } else if (requestPath.contains("/doForm")|| requestPath.contains("/SaveFormUser") ) {
+        } else if (requestPath.contains("/doForm") || requestPath.contains("/SaveFormUser")) {
             try {
                 // get session
 
@@ -92,14 +92,18 @@ public class AuthenticationFilter implements Filter {
                 } catch (Exception e) {
                     isSurveyExist = false;
                 }
+                System.out.println("idSurveyNumber: " + idSurveyNumber);
                 // get survey
                 Survey survey = ManagementDAO.SurveyManagement.getSurveyById(idSurveyNumber);
                 // check survey exist or not
                 if (survey == null) {
                     isSurveyExist = false;
+                    System.out.println("survey null : ");
                 } else {
-                    listQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(1);
+                    listQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(idSurveyNumber);
+                    System.out.println("listQuestion: " + listQuestion.size());
                 }
+                //System.out.println("idSurveyNumber: " + listQuestion.size());
                 if (listQuestion != null && listQuestion.size() == 0) {
                     isSurveyExist = false;
                 }
