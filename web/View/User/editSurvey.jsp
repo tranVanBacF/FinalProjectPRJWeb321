@@ -26,9 +26,8 @@
                     <div class="w3-container w3-responsive">
                         <table class="w3-table">
                             <tr>
-                                <th>ID</th>
-                                <th>Time</th>
                                 <th>Question</th>
+                                <th>Time</th>
                                 <th>Action</th>
                             </tr>
                             <c:forEach items="${questions}" var="list">
@@ -39,9 +38,8 @@
                                     <th></th>
                                 </tr>
                                 <tr class="w3-white">
-                                    <td>${list.getId()}</td>
-                                    <td>${list.getCraetedDate()}</td>
                                     <td>${list.getContent()}</td>
+                                    <td>${list.getCraetedDate()}</td>
                                     <td>
                                         <button type="button" onclick="edit(${list.getId()})">Edit</button>
                                     </td>
