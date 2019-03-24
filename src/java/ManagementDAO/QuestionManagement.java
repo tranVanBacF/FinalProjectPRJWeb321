@@ -37,5 +37,8 @@ public class QuestionManagement {
     public static Question getQuestionByID(int id) throws MyException {
         return QuestionDAO.getQuestionByID(id);
     }
+    public static boolean deleteQuestion(int id) throws MyException {
+        return QuestionDAO.deleteQuestion(id);
+    }
 
 }

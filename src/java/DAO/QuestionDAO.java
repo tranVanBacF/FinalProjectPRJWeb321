@@ -37,7 +37,7 @@ public class QuestionDAO {
 
             ptml.setInt(1, question.getSurvey());
             ptml.setString(2, question.getContent());
-             ptml.setTimestamp(3, new Timestamp( new java.util.Date().getTime()));
+            ptml.setTimestamp(3, new Timestamp(new java.util.Date().getTime()));
 //            ptml.setDate(3, question.getCraetedDate());
 
             int kt = ptml.executeUpdate();
@@ -78,6 +78,7 @@ public class QuestionDAO {
         }
         return listQuestion;
     }
+
     public static Question getQuestionByID(int id) throws MyException {
         // create list to save Question
         //List<Question> listQuestion = new ArrayList<>();
@@ -101,7 +102,7 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(4005, ex);
+            throw new MyException(4003, ex);
         }
         return null;
     }
@@ -115,16 +116,16 @@ public class QuestionDAO {
 //          // System.out.println(insertQuestion(new Question(1, "hai", ConvertStringToDateDAO.StringToSqlDate("2019-22-12"))));
 //    }
 
-    public static List<Question> getQuestionsBySurvey(int surveyID) throws MyException {   
+    public static List<Question> getQuestionsBySurvey(int surveyID) throws MyException {
         // create list to save Question
         List<Question> questions = new ArrayList<>();
         // create connections
         Connection conn = DBConnection.createConnection();
         //Statement to get all questions of a survey
-        String sql = "SELECT q.* " +
-            "FROM Questions q " +
-            "WHERE q.Survey = ?";
-        
+        String sql = "SELECT q.* "
+                + "FROM Questions q "
+                + "WHERE q.Survey = ?";
+
         PreparedStatement ptml;
         try {
             ptml = conn.prepareStatement(sql);
@@ -140,12 +141,11 @@ public class QuestionDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(4003, ex);
+            throw new MyException(4004, ex);
         }
         return questions;
     }
 
-    
     public static boolean updateQuestion(Question que) throws MyException {
         // create connection 
         Connection conn = DBConnection.createConnection();
@@ -167,8 +167,25 @@ public class QuestionDAO {
             }
             conn.close();
         } catch (SQLException ex) {
-            throw new MyException(4004, ex);
+            throw new MyException(4005, ex);
         }
         return false;
     }
-}   
+
+    public static boolean deleteQuestion(int id) throws MyException {
+        Connection conn = DBConnection.createConnection();
+        String sql = "delete from Questions where id = " + id;// cau lenh delete trong sql(chu y: neu truyen thang id kieu nay de bị hacker khai thac loi ịnjection)
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);// ket noi voi sql
+            int kt = preparedStatement.executeUpdate();// thuc hien cau lenh va update database(executeUpdate() su dung khi thuc hien cac cau lenh sql dong nhu delete,insert,update)
+            if (kt != 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            // nem ra thang exception la 1002 neu gap loi
+            throw new MyException(4006, ex);
+        }
+        return false;
+    }
+}

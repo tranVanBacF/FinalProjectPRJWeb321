@@ -7,8 +7,10 @@ package ControllerViet;
 
 import DAO.ConvertStringToDateDAO;
 import Entity.Question;
+import Entity.Survey;
 import Exception.MyException;
 import ManagementDAO.QuestionManagement;
+import ManagementDAO.SurveyManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -77,12 +79,23 @@ public class EditQuestion extends HttpServlet {
             } else {
                 try {
                     ids = Integer.parseInt(id);
-                    request.setAttribute("id", ids);
-                    Question questions = QuestionManagement.getQuestionByID(ids);
-                    System.out.println(questions.getContent());
-                    request.setAttribute("questions", questions);
-                    RequestDispatcher View = request.getRequestDispatcher("View/User/editQuestion.jsp");
-                    View.forward(request, response);
+                    QuestionManagement manageQuestionDAO = new QuestionManagement();
+                    Question question = manageQuestionDAO.getQuestionByID(ids);
+                    if (question != null) {
+                        request.setAttribute("id", ids);
+                        Question questions = QuestionManagement.getQuestionByID(ids);
+                        System.out.println(questions.getContent());
+                        request.setAttribute("questions", questions);
+                        RequestDispatcher View = request.getRequestDispatcher("View/User/editQuestion.jsp");
+                        View.forward(request, response);
+                    } else {
+                        error = "Question ID not Exits!";
+                        request.setAttribute("error", error);
+                        RequestDispatcher View = request.getRequestDispatcher("View/exceptions/errorPage.jsp");
+                        View.forward(request, response);
+                        return;
+                    }
+
                 } catch (NumberFormatException ee) {
                     error = "NumberFormatException, ID or IdSurvey Not ParseInt!";
                     request.setAttribute("error", error);
