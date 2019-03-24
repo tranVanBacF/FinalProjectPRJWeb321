@@ -15,10 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <body class="w3-content" style="max-width:1300px">
-         <jsp:include page="../Menu.jsp"/>
+        <jsp:include page="../Menu.jsp"/>
         <!-- Second Grid: Work & Resume -->
         <div class="w3-row">
-            <div class="w3-indigo w3-container" style="min-height:800px">
+            <div class="w3-dark-grey w3-container" style="min-height:800px">
                 <div class="w3-padding-64 w3-center">
                     <h2>Question</h2>
                     <a href="insertQuestion"> <h2 style="text-align:left;">Create Question</h2></a>
@@ -38,16 +38,24 @@
                                     <th></th>
                                 </tr>
                                 <tr class="w3-white">
+
                                     <td>${list.getContent()}</td>
                                     <td>${list.getCraetedDate()}</td>
                                     <td>
                                         <button type="button" onclick="edit(${list.getId()})">Edit</button>
+                                        <button type="button" onclick="dele(${list.getId()})">Delete</button>
                                     </td>
                                 </tr>
                             </c:forEach>
                             <script>
                                 function edit(id) {
                                     window.location.href = "editQuestion?id=" + id;
+                                }
+                                function dele(id) {
+                                    var r = confirm("do you want to delete the student??");
+                                    if (r === true) {
+                                        window.location.href = "Delete?id=" + id;
+                                    }
                                 }
                             </script>
                         </table>
