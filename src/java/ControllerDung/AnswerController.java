@@ -80,8 +80,10 @@ public class AnswerController extends HttpServlet {
             request.setAttribute("answers", answers);
             
             List<Question> questions = QuestionManagement.getQuestionsBySurvey(surveyID);
+            System.out.println(questions.size());
             request.setAttribute("questions", questions);
-            
+            Object o = questions.get(0);
+            System.out.println(questions.indexOf((Question)o));
             Survey survey = SurveyManagement.getSurveyById(surveyID);
             request.setAttribute("survey", survey);
             request.setAttribute("submitter", submitter);

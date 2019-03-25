@@ -3,7 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bactv/Desktop/semester_4_spring2019/PRJ321_webJava/FinalProject/dung%20bac/ProjectFinalPRJ321/src/java/DB/DBConnection.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/ControllerBac/AnswerQuestion.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/Answer/AnswerQuestion.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/DAO/QuestionDAO.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/ControllerDung/AnswerController.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/User/submitters.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/User/editSurvey.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/User/answers.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/User/insertQuestion.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/ControllerViet/EditQuestion.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/web/View/User/editQuestion.jsp</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/DAO/AnswerDAO.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/DB/DBConnection.java</file>
+            <file>file:/F:/FPT/SPRING_2019_4/PRJ321/FinalProjectPRJWeb321/src/java/Exception/MyException.java</file>
         </group>
     </open-files>
 </project-private>

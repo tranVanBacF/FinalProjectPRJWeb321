@@ -7,7 +7,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.ConvertStringToDateDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <body class="w3-content" style="max-width:1300px">
+    <body>
          <jsp:include page="../Menu.jsp"/>
         <!-- Third Grid: Swing By & Contact -->
         <div class="w3-row" id="contact">
@@ -27,7 +27,7 @@
                         <c:if test="${not empty questions}">
                         <div class="w3-section">
                         <label>Description</label>
-                                <input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description" value=${questions.getContent()} />
+                                <input class="w3-input" style="width:100%;" type="text" placeholder="Write Content ..." name="description" value="${questions.getContent()}" />
                         </div>
                         </c:if>
                                 <!--<c:if test="${empty questions}">-->
@@ -65,9 +65,5 @@
             }
             a("day");
         </script>
-        <!-- Footer -->
-        <footer class="w3-container w3-black w3-padding-16">
-        </footer>
-
     </body>
 </html>

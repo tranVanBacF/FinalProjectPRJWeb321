@@ -29,9 +29,9 @@ public class AnswerDAO {
         // create connection
         Connection conn = DBConnection.createConnection();
 
-        String getAllSubmittersBySurveyIdStatement = "SELECT DISTINCT(a.Submitter)\n"
-                + "FROM Surveys s, Answers q, Answers a\n"
-                + "WHERE s.Id = q.Survey AND a.Answer = q.Id AND s.Id = ?";
+        String getAllSubmittersBySurveyIdStatement = "SELECT DISTINCT(a.Submitter)\n" +
+            "FROM Surveys s, Questions q, Answers a\n" +
+            "WHERE s.Id = q.Survey AND a.Question = q.Id AND s.Id = ?";
         List<String> submitters = new ArrayList<String>();
 
         PreparedStatement ptml;
@@ -49,6 +49,7 @@ public class AnswerDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
+            System.out.println("EXCEPTION ====== " + ex);
             throw new MyException(5001, ex);
         }
         return submitters;
@@ -58,9 +59,9 @@ public class AnswerDAO {
         // create connection
         Connection conn = DBConnection.createConnection();
 
-        String getAnswerOfSubmitterInSurveyStatement = "SELECT a.*\n"
-                + "FROM Surveys s, Answers q, Answers a\n"
-                + "WHERE s.Id = q.Survey AND q.Id = a.Id AND s.Id = ? AND a.Submitter like ?";
+        String getAnswerOfSubmitterInSurveyStatement = "SELECT a.*\n" +
+            "FROM Surveys s, Questions q, Answers a\n" +
+            "WHERE s.Id = q.Survey AND q.Id = a.Question AND s.Id = ? AND a.Submitter like ?";
         List<Answer> answers = new ArrayList<Answer>();
 
         PreparedStatement ptml;
@@ -83,6 +84,7 @@ public class AnswerDAO {
             // close connection
             conn.close();
         } catch (SQLException ex) {
+            System.out.println("EXCEPTION ====== " + ex);
             throw new MyException(5002, ex);
         }
         return answers;
