@@ -43,19 +43,29 @@ public class AnswerQuestion extends HttpServlet {
         try {
             // get session
             HttpSession session = request.getSession();
-
-
             // get id survey
             String idSurvey = request.getParameter("id");
             int idSurveyNumber = Integer.parseInt(idSurvey);
+            //
+            List<Question> listAllQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(idSurveyNumber);
+            //
+            int currentPage = 1;
+
+            int rowNumber = (int) Math.ceil(listAllQuestion.size() * 1.0 / 3);
+            System.out.println("rowNumber" + rowNumber);
+            System.out.println("rowNumber" + Math.ceil(listAllQuestion.size() / 3));
+
+            int start = (currentPage - 1) * rowNumber;
+
             Survey survey = ManagementDAO.SurveyManagement.getSurveyById(idSurveyNumber);
 
-            List<Question> listQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(idSurveyNumber);
+            List<Question> listQuestion = ManagementDAO.QuestionManagement.getQuestionForPagin(idSurveyNumber, start, rowNumber);
 
             for (int i = 0; i < listQuestion.size(); i++) {
                 listQuestion.get(i).setOrderDisplay(i + 1);
             }
             //
+            session.setAttribute("currentPage", currentPage);
             session.setAttribute("listQuestion", listQuestion);
             session.setAttribute("survey", survey);
             //
@@ -66,6 +76,33 @@ public class AnswerQuestion extends HttpServlet {
         } catch (MyException ex) {
             response.getWriter().println(ex);
         }
+//         try {
+//            // get session
+//            HttpSession session = request.getSession();
+//
+//
+//            // get id survey
+//            String idSurvey = request.getParameter("id");
+//            int idSurveyNumber = Integer.parseInt(idSurvey);
+//            Survey survey = ManagementDAO.SurveyManagement.getSurveyById(idSurveyNumber);
+//
+//            List<Question> listQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(idSurveyNumber);
+//
+//            for (int i = 0; i < listQuestion.size(); i++) {
+//                listQuestion.get(i).setOrderDisplay(i + 1);
+//            }
+//            //
+//            
+//            session.setAttribute("listQuestion", listQuestion);
+//            session.setAttribute("survey", survey);
+//            //
+//            // RequestDispatcher rd = request.getRequestDispatcher("View/Answer/AnswerQuestion.jsp");
+//            //rd.forward(request, response);
+//            response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+//
+//        } catch (MyException ex) {
+//            response.getWriter().println(ex);
+//        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

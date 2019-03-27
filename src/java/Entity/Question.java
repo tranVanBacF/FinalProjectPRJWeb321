@@ -7,12 +7,22 @@ import java.sql.Date;
  * @author DxG
  */
 public class Question {
+    private String temporaryAnswer="";
     private int orderDisplay;// dung de hien thi thu tu câu hỏi trên form answer
     private int id;
     private int survey;
     private String content;
     private Date craetedDate;
 
+    public String getTemporaryAnswer() {
+        return temporaryAnswer;
+    }
+
+    public void setTemporaryAnswer(String temporaryAnswer) {
+        this.temporaryAnswer = temporaryAnswer;
+    }
+
+    
     public Question() {
     }
 

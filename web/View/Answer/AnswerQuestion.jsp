@@ -52,50 +52,71 @@
 
 
         <div class="container-contact100" >
-            
+
             <div class="wrap-contact100">
                 <h1>${emptyMessage}</h1>
                 <center><h1 style="color: brown"> Welcome to our Survey</h1></center>
                 <br>
                 <c:if test="${not empty survey}">
                     <center><h1> ${survey.getName()}</h1></center>
-                </c:if>
-                <c:if test="${not empty survey}">
+                    </c:if>
+                    <c:if test="${not empty survey}">
                     <center><h2> ${survey.getDescription()}</h2></center>
-                </c:if>
+                    </c:if>
                 <br>
                 <h3 style="color: background"> Please answer all question before submit</h3>
 
-                <form class="contact100-form validate-form" action="/14_ProjectFinalPRJ321/SaveFormUser" method="post">
-                   <c:if test="${not empty survey}">
-<!--                    <h2> ${survey.getDescription()}</h2>-->
-                     <input type="hidden" name="id"  value="${survey.getId()}">
-                </c:if>
+                <form class="contact100-form validate-form" action="/14_ProjectFinalPRJ321/SaveForm" method="post">
+                    <c:if test="${not empty survey}">
+ <!--                    <h2> ${survey.getDescription()}</h2>-->
+                        <input type="hidden" name="id"  value="${survey.getId()}">
+                    </c:if>
                     <br>
-                    <h5 >  Submitter</h5>
-                    <input type="text" name="submiter" placeholder="submitter" required>
-                     
-                    <br>
-                    <h5 >  Registration Date</h5>
 
-                    <input type="date" id="day" name="registrationDate" value="${registrationDate}" readonly>
+                    <c:if test="${currentPage == 1}">
+                        <h5 >  Submitter</h5>
+                        <input type="text" name="submiter" placeholder="submitter" value="${submiter}" required>
+                        <br>
+                        <h5 >  Registration Date</h5>
+
+                        <input type="date" id="day" name="registrationDate" value="${registrationDate}" readonly>
+                    </c:if>
+
+
                     <table border='1'>
                         <c:forEach items="${listQuestion}" var="list">
 
                             Sentence:  ${list.getOrderDisplay()} ,    ${list.getContent()}
 
-                            Question ${list.getOrderDisplay()}: ${list.getContent()}
+
 
                             <br>
                             Anwser
-                            <textarea rows="4" cols="100" style="border:dotted 2px orange; font-size: 20px " name="${list. getId()}" value="${list. getId()}" required="required"></textarea>
+                            <!--<textarea rows="4" cols="100" style="border:dotted 2px orange; font-size: 20px " name="${list.getId()}" value="${list.getTemporaryAnswer()}" required="required"></textarea>-->
+                            <input type="text" name="${list.getId()}" value="${list.getTemporaryAnswer()}" required="required" value="${survey.getId()}">
 
                             <br>
                             <br>
                         </c:forEach>
                     </table>
+                    <c:if test="${listQuestion.size() == 0}">
+                        <h4> there is no more question , you can submit</h4>
 
-                    <input type="submit" value="Submit">
+                    </c:if>
+                    <h4>Page ${currentPage} </h4>
+                    <c:if test="${currentPage   >1 }">
+                        <input style="display: inline-block; width:60px"   type="submit" name="decrease" value="<<<">
+                    </c:if>
+                    <input type="hidden" name="currentPage"  value="${currentPage}">
+                    <input style="display: inline-block; width: 60px"  type="submit" name="pageSubmit"  value="1">
+                    <input style="display: inline-block; width:60px"  type="submit" name="pageSubmit" value="2">
+                    <input style="display: inline-block; width:60px"   type="submit" name="pageSubmit" value="3">
+                    <c:if test="${currentPage  < 3}">
+                        <input style="display: inline-block; width:60px"   type="submit" name="increase" value=">>>">
+                    </c:if>
+                    <c:if test="${currentPage == 3}">
+                        <input style="display: inline-block" type="submit" name="Submit" value="Submit">
+                    </c:if>
                 </form>
             </div>
         </div>

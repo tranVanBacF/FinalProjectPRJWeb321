@@ -40,5 +40,7 @@ public class QuestionManagement {
     public static boolean deleteQuestion(int id) throws MyException {
         return QuestionDAO.deleteQuestion(id);
     }
-
+    public static List<Question> getQuestionForPagin(int surveyID, int start, int rowNumber) throws MyException {
+         return QuestionDAO.getQuestionForPagin(surveyID, start, rowNumber);
+    }
 }

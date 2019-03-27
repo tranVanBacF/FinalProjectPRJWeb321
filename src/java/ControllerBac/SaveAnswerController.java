@@ -91,10 +91,12 @@ public class SaveAnswerController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            String idSurvey = request.getParameter("id");
+            String idSurvey = request.getParameter("idSurvey");
             String submiter = request.getParameter("submiter");
             String registrationDate = request.getParameter("registrationDate");
-// parse
+            // get  type of submit
+            
+            // parse
             int idSurveyNumber = Integer.parseInt(idSurvey);
             Survey survey = ManagementDAO.SurveyManagement.getSurveyById(idSurveyNumber);
             // get list question

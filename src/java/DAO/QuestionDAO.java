@@ -79,6 +79,42 @@ public class QuestionDAO {
         return listQuestion;
     }
 
+    public static List<Question> getQuestionForPagin(int surveyID, int start, int rowNumber) throws MyException {
+        // create list to save Question
+        List<Question> listQuestion = new ArrayList<>();
+        // create connection
+        Connection conn = DBConnection.createConnection();
+        // select statement to take all Question in  Questions table
+        String sql = "SELECT *\n"
+                + "FROM Questions\n"
+                + "where Survey = ? \n"
+                + "order by id\n"
+                + "OFFSET ?  ROWS\n"
+                + "FETCH NEXT ?  ROWS ONLY;";
+         
+        PreparedStatement ptml;
+        try {
+            ptml = conn.prepareStatement(sql);
+            ptml.setInt(1, surveyID);
+            ptml.setInt(2, start);
+            ptml.setInt(3, rowNumber);
+
+            // user ResultSet Object to save all rows after select
+            ResultSet rs = ptml.executeQuery();
+
+            while (rs.next()) {// check if rs has element
+                listQuestion.add(new Question(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4)));
+            }
+
+            rs.close();
+            // close connection
+            conn.close();
+        } catch (SQLException ex) {
+            throw new MyException(4002, ex);
+        }
+        return listQuestion;
+    }
+
     public static Question getQuestionByID(int id) throws MyException {
         // create list to save Question
         //List<Question> listQuestion = new ArrayList<>();
@@ -106,6 +142,7 @@ public class QuestionDAO {
         }
         return null;
     }
+
 //    // test
 //       public static void main(String[] args) {
 //          List<Question> listQuestion = getQuestion(1);
@@ -115,7 +152,6 @@ public class QuestionDAO {
 //           System.out.println("insert ");
 //          // System.out.println(insertQuestion(new Question(1, "hai", ConvertStringToDateDAO.StringToSqlDate("2019-22-12"))));
 //    }
-
     public static List<Question> getQuestionsBySurvey(int surveyID) throws MyException {
         // create list to save Question
         List<Question> questions = new ArrayList<>();
@@ -187,5 +223,18 @@ public class QuestionDAO {
             throw new MyException(4006, ex);
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        try {
+            List<Question> listQuestion = QuestionDAO.getQuestionForPagin(1009, 0, 5);
+            List<Question> listQuestionHai = QuestionDAO.getQuestionsBySurvey(1009);
+
+            for (Question question : listQuestion) {
+                System.out.println(question.getId() + " " + question.getContent());
+            }
+        } catch (MyException ex) {
+            Logger.getLogger(QuestionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

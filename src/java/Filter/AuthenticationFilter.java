@@ -75,7 +75,7 @@ public class AuthenticationFilter implements Filter {
             }
 // check when answer and submitt 
 //|| requestPath.contains("/SaveFormUser")
-        } else if (requestPath.contains("/doForm") || requestPath.contains("/SaveFormUser")) {
+        } else if (requestPath.contains("/doForm") || requestPath.contains("/SaveForm")) {
             try {
                 // get session
 
@@ -84,7 +84,9 @@ public class AuthenticationFilter implements Filter {
                 // get id survey
                 String idSurvey = httpRequest.getParameter("id");
                 //
-                System.out.println("Id survey la: " + idSurvey);
+               
+                //
+                //System.out.println("Id survey la: " + idSurvey);
                 List<Question> listQuestion = null;
                 int idSurveyNumber = 0;
                 try {// convert String to number,
@@ -92,16 +94,16 @@ public class AuthenticationFilter implements Filter {
                 } catch (Exception e) {
                     isSurveyExist = false;
                 }
-                System.out.println("idSurveyNumber: " + idSurveyNumber);
+                //System.out.println("idSurveyNumber: " + idSurveyNumber);
                 // get survey
                 Survey survey = ManagementDAO.SurveyManagement.getSurveyById(idSurveyNumber);
                 // check survey exist or not
                 if (survey == null) {
                     isSurveyExist = false;
-                    System.out.println("survey null : ");
+                  //  System.out.println("survey null : ");
                 } else {
                     listQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(idSurveyNumber);
-                    System.out.println("listQuestion: " + listQuestion.size());
+                    //System.out.println("listQuestion: " + listQuestion.size());
                 }
                 //System.out.println("idSurveyNumber: " + listQuestion.size());
                 if (listQuestion != null && listQuestion.size() == 0) {

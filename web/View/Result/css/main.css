@@ -622,7 +622,8 @@ input.email, input.text.w3lpass  {
 }
 
 input[type="submit"] {
-  font-size: .9em;
+    display: inline;
+/*  font-size: .9em;
   color: #fff;
   background: #76b852;
   outline: none;
@@ -632,7 +633,7 @@ input[type="submit"] {
   -webkit-appearance: none;
   width: 100%;
   margin: 2em 0;
-  letter-spacing: 4px;
+  letter-spacing: 4px;*/
 }
 
 input[type="submit"]:hover {
