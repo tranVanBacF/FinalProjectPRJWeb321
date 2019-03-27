@@ -52,7 +52,6 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="/14_ProjectFinalPRJ321/View/Home.jsp">Home</a></li>
             <li><a  href="/14_ProjectFinalPRJ321/surveys">Manage Survey</a></li>
                 <c:if test="${empty sessionScope.user}">
                 <li><a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a></li>
@@ -67,17 +66,10 @@
             <!--<li><a href="#contact">Contact</a></li>-->
             <!--<li><a href="#about">About</a></li>-->
         </ul>
-
-        <p>
-            <a href="/14_ProjectFinalPRJ321/View/Home.jsp">Home</a>
-            <a href="/14_ProjectFinalPRJ321/surveys">Manage Survey</a>
-            <c:if test="${empty sessionScope.user}">
-                <a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a>
-                <a href="/14_ProjectFinalPRJ321/View/Register/Register.jsp">Register</a>
-            </c:if>
-            <c:if test="${not empty sessionScope.user}">
-                Welcome ${sessionScope.user.username} <a href="/14_ProjectFinalPRJ321/RemoveSession">(Logout)</a>
-            </c:if>
+        <p style="margin-top: 3% ">
+            
+            
         </p>
+      
     </body>
 </html>

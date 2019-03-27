@@ -103,7 +103,7 @@ public class LoginController extends HttpServlet {
 
             } else {
                 session.setAttribute("user", user);
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+                response.sendRedirect("/14_ProjectFinalPRJ321/surveys");
             }
         } catch (MyException ex) {
             session.setAttribute("MyException", ex);

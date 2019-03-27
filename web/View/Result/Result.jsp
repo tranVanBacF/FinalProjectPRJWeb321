@@ -51,65 +51,17 @@
     <body>
 
 
-        <div class="container-contact100" >
-            
+        <div class="container-contact100">
+            <!--<h1 style="color: brown">  ${resultMessage}</h1>-->
+
             <div class="wrap-contact100">
-                <h1>${emptyMessage}</h1>
-                <h1 style="color: brown"> Welcome to our Survey</h1>
-                <c:if test="${not empty survey}">
-                    <h2> ${survey.getDescription()}</h2>
-                </c:if>
+                <h1 style="color: brown"> ${resultMessage}</h1>
+
                 <h3 style="color: background"> Please answer all question before submit</h3>
-
-                <form class="contact100-form validate-form" action="/14_ProjectFinalPRJ321/SaveFormUser" method="post">
-                   <c:if test="${not empty survey}">
-<!--                    <h2> ${survey.getDescription()}</h2>-->
-                     <input type="hidden" name="id"  value="${survey.getId()}">
-                </c:if>
-                    <br>
-                    <h5 >  submitter:</h5>
-                    <input type="text" name="submiter" placeholder="submitter" required>
-                     
-                    <br>
-                    <h5 >  Registration Date</h5>
-
-                    <input type="date" id="day" name="registrationDate" value="${registrationDate}" readonly>
-                    <table border='1'>
-                        <c:forEach items="${listQuestion}" var="list">
-                            Sentence:  ${list.getOrderDisplay()} ,    ${list.getContent()}
-                            <br>
-                            anwser
-                            <textarea rows="4" cols="100" style="border:dotted 2px orange; font-size: 20px " name="${list. getId()}" value="${list. getId()}" required="required"></textarea>
-
-                            <br>
-                            <br>
-                        </c:forEach>
-                    </table>
-
-                    <input type="submit" value="Submit">
-                </form>
             </div>
         </div>
 
-        <script>
-            function a(date) {
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth() + 1; //January is 0!
 
-                var yyyy = today.getFullYear();
-                if (dd < 10) {
-                    dd = '0' + dd;
-                }
-                if (mm < 10) {
-                    mm = '0' + mm;
-                }
-                var today = yyyy + '-' + mm + '-' + dd;
-                console.log(today)
-                document.getElementById(date).value = today;
-            }
-            a("day");
-        </script>
 
 
     </body>

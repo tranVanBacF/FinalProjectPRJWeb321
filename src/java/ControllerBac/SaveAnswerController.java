@@ -136,7 +136,9 @@ public class SaveAnswerController extends HttpServlet {
 //            });
 
             //
-            response.getWriter().println("<h1>" +" thanks you for answer our survey"+"</h1>");
+            session.setAttribute("resultMessage", "thanks you for answer our survey ");
+            response.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
+            //  response.getWriter().println("<h1 style='color:blue'>" + " thanks you for answer our survey" + "</h1>");
         } catch (MyException ex) {
             response.getWriter().println(ex.getMessage());
 

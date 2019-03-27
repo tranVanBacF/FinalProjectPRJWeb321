@@ -108,13 +108,19 @@ public class AuthenticationFilter implements Filter {
                     isSurveyExist = false;
                 }
                 if (!isSurveyExist) {
-                    response.getWriter().println(" <h1> " + "Survey doesn't exist" + "</h1>");
+                    session.setAttribute("resultMessage", " Survey doesn't exist");
+                    httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
                     return;
+                    // response.getWriter().println(" <h1 style='color:red'> " + "Survey doesn't exist" + "</h1>");
+                    // return;
                 }
                 // check status Survey
                 if (survey.getStatus() != 1) {
-                    response.getWriter().println(" <h1> " + "Survey is Close" + "</h1>");
+                    session.setAttribute("resultMessage", " Survey is Close");
+                    httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
                     return;
+                    //   response.getWriter().println(" <h1 style='color:red'> " + "Survey is Close" + "</h1>");
+                    //return;
                 }
             } catch (MyException ex) {
                 response.getWriter().println(ex);
