@@ -22,7 +22,10 @@ public class DBConnection {
         String dbName = "Survey";
         String portNumber = "1433";
         String userID = "sa";
+
         String password = "bacbax";
+
+
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
         try {
 
