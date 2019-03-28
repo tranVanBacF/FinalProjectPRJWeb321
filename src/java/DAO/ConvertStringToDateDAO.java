@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,5 +53,14 @@ public class ConvertStringToDateDAO {
 //    }
 //public static void main(String[] args) {
 //        System.out.println( new Timestamp( new java.util.Date().getTime()));
+//        long endTime   = System.nanoTime()/1000;
+//        System.out.println(endTime);
+//        endTime   = System.nanoTime()/1000;
+//        System.out.println(endTime);
+//        endTime   = System.nanoTime();
+//        System.out.println(endTime);
+//        System.out.println(TimeUnit.NANOSECONDS.toSeconds(endTime));
+//        
+//        
 //    }
 }

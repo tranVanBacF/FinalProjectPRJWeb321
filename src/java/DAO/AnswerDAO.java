@@ -54,6 +54,38 @@ public class AnswerDAO {
         }
         return submitters;
     }
+public static int getCountSubmitterInSurvey(int surveyID) throws MyException {
+        // create connection
+        Connection conn = DBConnection.createConnection();
+
+        String getAnswerOfSubmitterInSurveyStatement = "select count(*) from \n"
+                + "Surveys s , Questions q , Answers a\n"
+                + "where s.Id = q.Survey and q.Id = a.Question\n"
+                + "and s.Id = ?"
+                ;
+        List<Answer> answers = new ArrayList<Answer>();
+
+        PreparedStatement ptml;
+        try {
+            ptml = conn.prepareStatement(getAnswerOfSubmitterInSurveyStatement);
+            ptml.setInt(1, surveyID);
+        
+            // user ResultSet Object to save all rows after select
+            ResultSet rs = ptml.executeQuery();
+
+            while (rs.next()) {// check if rs has element
+                return rs.getInt(1);
+            }
+
+            rs.close();
+            // close connection
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println("EXCEPTION ====== " + ex);
+            throw new MyException(5002, ex);
+        }
+        return 0;
+    }
 
     public static List<Answer> getAnswerOfSubmitterInSurvey(int surveyID, String submitter) throws MyException {
         // create connection
@@ -115,5 +147,8 @@ public class AnswerDAO {
         }
         return false;
     }
+//    public static void main(String[] args) throws MyException {
+//        System.out.println(getCountSubmitterInSurvey(1010));
+//    }
 
 }

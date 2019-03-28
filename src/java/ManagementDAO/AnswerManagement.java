@@ -25,4 +25,7 @@ public class AnswerManagement {
     public static boolean insertAnswer(Answer answer) throws MyException {
         return AnswerDAO.insertAnswer(answer);
     }
+    public static int getCountSubmitterInSurvey(int surveyID) throws MyException {
+        return AnswerDAO.getCountSubmitterInSurvey(surveyID);
+    }
 }

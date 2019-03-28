@@ -89,7 +89,9 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
         try {
             //
             HttpSession session = request.getSession();
-            //
+            //set error =""
+             session.setAttribute("messageErrorAnswer", "");
+             //
             String pageSubmit = request.getParameter("pageSubmit");
             String submit = request.getParameter("Submit");
             String currenPage = request.getParameter("currentPage");
@@ -120,10 +122,12 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
             int pageNumber = 1;
             if (pageSubmit != null && pageSubmit.matches("[0-9]+")) {
                 pageNumber = Integer.parseInt(pageSubmit);// get page target
-            } else if(increase != null) {
+            } else if (increase != null) {
                 pageNumber = Integer.parseInt(currenPage) + 1;// increase page
-            }else if(decrease != null){
-                  pageNumber = Integer.parseInt(currenPage) -1;// decrease page
+            } else if (decrease != null) {
+                pageNumber = Integer.parseInt(currenPage) - 1;// decrease page
+            }else{
+                pageNumber = Integer.parseInt(currenPage);
             }
             // get page next
             int nextPage = pageNumber;
@@ -131,8 +135,8 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
             int rowNumber = (int) Math.ceil(listAllQuestion.size() * 1.0 / 3);
 
             int start = (nextPage - 1) * rowNumber;
-         //   System.out.println("pageSubmit " + pageSubmit);
-           // System.out.println("submit " + submit);
+            //   System.out.println("pageSubmit " + pageSubmit);
+            // System.out.println("submit " + submit);
             // get question to display
             List<Question> listQuestion = ManagementDAO.QuestionManagement.getQuestionForPagin(survey.getId(), start, rowNumber);
 //
@@ -166,15 +170,48 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
             }
 
             //  // save question
+            String submitter = "";
+            int allAnswer = 0;
+            int orderSubmitter = 0;
+
             if (submit != null) {
+                // check if a a filed empty
+                boolean isEmpty = false;
+                int count = 1;
+                for (Question question : listAllQuestion) {
+                    isEmpty = false;
+                    if (sessionValueHashMap.containsKey(question.getId() + "")) {
+                        if (((String) session.getAttribute(question.getId() + "")).trim().equals("")) {
+                            isEmpty = true;
+                        }
+                    } else {
+                        isEmpty = true;
+                    }
+                    if (isEmpty) {
+                         session.setAttribute("listQuestion", listQuestion);
+                        session.setAttribute("messageErrorAnswer", "Question " + count + " is emtpy, you must have to fill");
+                        response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+                        return;
+                    }
+                    count++;
+                }
+
+                //get submmiter
+                submitter = (String) session.getAttribute("submiter");
+                // get allAnswer of survey
+                allAnswer = AnswerManagement.getCountSubmitterInSurvey(survey.getId());
+                //
+                orderSubmitter = allAnswer / listAllQuestion.size() + 1;
+                submitter = orderSubmitter + "_" + submitter;
                 // List<Question> listAllQuestion = ManagementDAO.QuestionManagement.getQuestionsBySurvey(survey.getId());
                 for (Question question : listAllQuestion) {
                     if (sessionValueHashMap.containsKey(question.getId() + "")) {
-                        AnswerManagement.insertAnswer(new Answer(question.getId(), (String) session.getAttribute(question.getId() + ""), (String) session.getAttribute("submiter"), null));
+                        AnswerManagement.insertAnswer(new Answer(question.getId(), (String) session.getAttribute(question.getId() + ""), submitter, null));
                         //remove this answer session
                         session.setAttribute(question.getId() + "", "");
                     }
                 }
+                 session.setAttribute("messageErrorAnswer", "");
                 session.setAttribute("submiter", "");
 
                 session.setAttribute("resultMessage", "thanks you for answer our survey ");

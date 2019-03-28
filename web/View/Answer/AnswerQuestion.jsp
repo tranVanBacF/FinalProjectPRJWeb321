@@ -55,6 +55,7 @@
 
             <div class="wrap-contact100">
                 <h1>${emptyMessage}</h1>
+                <h1>${messageErrorAnswer}</h1>
                 <center><h1 style="color: brown"> Welcome to our Survey</h1></center>
                 <br>
                 <c:if test="${not empty survey}">
