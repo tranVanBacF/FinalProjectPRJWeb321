@@ -11,6 +11,7 @@ import Exception.MyException;
 import ManagementDAO.SurveyManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -88,7 +89,7 @@ public class ChangeStatusController extends HttpServlet {
             System.out.println("Status id " + statusToChange);
             int status = Integer.valueOf(statusToChange);
             boolean updateStatusRS = SurveyManagement.setStatusBySurveyId(surveyID, status);
-            String link = "http://localhost:8080/14_ProjectFinalPRJ321/doForm?id=" + surveyId;
+            String link = "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/doForm?id=" + surveyId;
             SurveyManagement.setLinkBySurveyId(surveyID, link);
             System.out.println("Change status come herer");
             if (updateStatusRS){

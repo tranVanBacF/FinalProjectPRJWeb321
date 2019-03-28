@@ -65,7 +65,7 @@ public class RemoveSession extends HttpServlet {
         if (session != null) {
              session.invalidate();  
             //session.setMaxInactiveInterval(0);
-           response.sendRedirect("/14_ProjectFinalPRJ321/View/Menu.jsp");
+           response.sendRedirect("/View/Menu.jsp");
         }
     }
 

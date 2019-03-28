@@ -31,7 +31,7 @@
                 <p title="close">x</p>
             </div>
             <div class="login-form">
-                <form action="/14_ProjectFinalPRJ321/LoginController" method="post">
+                <form action="/LoginController" method="post">
                     <input type="text" placeholder="Username"  name="userName" required value="${sessionScope.userName}"/>
                     <br /><br />
                     <input type="password" placeholder="Passowrd"  name="passWord"/>

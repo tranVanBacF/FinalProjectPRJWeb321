@@ -67,7 +67,7 @@
                 <br>
                 <h3 style="color: background"> Please answer all question before submit</h3>
 
-                <form class="contact100-form validate-form" action="/14_ProjectFinalPRJ321/SaveForm" method="post">
+                <form class="contact100-form validate-form" action="/SaveForm" method="post">
                     <c:if test="${not empty survey}">
  <!--                    <h2> ${survey.getDescription()}</h2>-->
                         <input type="hidden" name="id"  value="${survey.getId()}">
@@ -87,7 +87,7 @@
                     <table border='1'>
                         <c:forEach items="${listQuestion}" var="list">
 
-                            Sentence:  ${list.getOrderDisplay()} ,    ${list.getContent()}
+                            Question  ${list.getOrderDisplay()}:    ${list.getContent()}
 
 
 

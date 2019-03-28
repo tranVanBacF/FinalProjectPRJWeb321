@@ -87,6 +87,12 @@ public class SubmitterController extends HttpServlet {
             request.setAttribute("exception", ex);
             RequestDispatcher dispatcher  = request.getRequestDispatcher("View/User/submitters.jsp");
             dispatcher.forward(request, response);
+        } catch (Exception ex){
+            String error = "Survey ID must be a integer";
+            request.setAttribute("systemException", error);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
 

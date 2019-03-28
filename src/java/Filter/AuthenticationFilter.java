@@ -66,12 +66,12 @@ public class AuthenticationFilter implements Filter {
 
             if (session.getAttribute("user") == null) {
                 session.setAttribute("loginError", " you must have to login");
-                httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+                httpResponse.sendRedirect("/View/Login/Login.jsp");
                 return;
             }
         } else if (requestPath.endsWith("Login.jsp") || requestPath.endsWith("Register.jsp")) {
             if (session.getAttribute("user") != null) {
-                httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+                httpResponse.sendRedirect("/View/Home.jsp");
             }
 // check when answer and submitt 
 //|| requestPath.contains("/SaveFormUser")
@@ -111,7 +111,7 @@ public class AuthenticationFilter implements Filter {
                 }
                 if (!isSurveyExist) {
                     session.setAttribute("resultMessage", " Survey doesn't exist");
-                    httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
+                    httpResponse.sendRedirect("/View/Result/Result.jsp");
                     return;
                     // response.getWriter().println(" <h1 style='color:red'> " + "Survey doesn't exist" + "</h1>");
                     // return;
@@ -119,7 +119,7 @@ public class AuthenticationFilter implements Filter {
                 // check status Survey
                 if (survey.getStatus() != 1) {
                     session.setAttribute("resultMessage", " Survey is Close");
-                    httpResponse.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
+                    httpResponse.sendRedirect("/View/Result/Result.jsp");
                     return;
                     //   response.getWriter().println(" <h1 style='color:red'> " + "Survey is Close" + "</h1>");
                     //return;

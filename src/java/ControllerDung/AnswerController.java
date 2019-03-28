@@ -94,6 +94,12 @@ public class AnswerController extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
             requestDispatcher.forward(request, response);
             return;
+        } catch (Exception ex){
+            String error = "Survey ID must be a integer";
+            request.setAttribute("systemException", error);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/User/answers.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
     }
 

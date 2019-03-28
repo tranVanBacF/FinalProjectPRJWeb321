@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h1>Register Form</h1>
             <div class="main-agileinfo">
                 <div class="agileits-top">
-                    <form action="/14_ProjectFinalPRJ321/RegisterUserController" method="post" onsubmit=" return checkInfo()" name="myForm">
+                    <form action="/RegisterUserController" method="post" onsubmit=" return checkInfo()" name="myForm">
                         <input class="text" type="text" name="name" placeholder="name" value="${name}" required="">
                         <input class="text email" type="email" name="email" placeholder="Email" value="${email}" required="">
                         <h5 style="color: white"> Birthday:</h5>

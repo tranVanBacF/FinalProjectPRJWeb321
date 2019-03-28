@@ -65,7 +65,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // brower to home.jsp
-        response.sendRedirect("/14_ProjectFinalPRJ321/View/Home.jsp");
+        response.sendRedirect("/View/Home.jsp");
         return;
     }
 
@@ -99,15 +99,15 @@ public class LoginController extends HttpServlet {
             }
             if (error) {
                 // wrong  redirect to login
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+                response.sendRedirect("/View/Login/Login.jsp");
 
             } else {
                 session.setAttribute("user", user);
-                response.sendRedirect("/14_ProjectFinalPRJ321/surveys");
+                response.sendRedirect("/surveys");
             }
         } catch (MyException ex) {
             session.setAttribute("MyException", ex);
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Login/Login.jsp");
+            response.sendRedirect("/View/Login/Login.jsp");
         }
 
     }

@@ -23,14 +23,14 @@
 
     <body>
          <p>
-            <a href="/14_ProjectFinalPRJ321/View/Home.jsp">Home</a>
-            <a href="/14_ProjectFinalPRJ321/View/User/Other.jsp">Manage Survey</a>
+            <a href="/View/Home.jsp">Home</a>
+            <a href="/View/User/Other.jsp">Manage Survey</a>
             <c:if test="${empty sessionScope.user}">
-                <a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a>
-                <a href="/14_ProjectFinalPRJ321/View/Register/Register.jsp">Register</a>
+                <a href="/View/Login/Login.jsp">Login</a>
+                <a href="/View/Register/Register.jsp">Register</a>
             </c:if>
             <c:if test="${not empty sessionScope.user}">
-                Welcome ${sessionScope.user.username} <a href="/14_ProjectFinalPRJ321/RemoveSession">(Logout)</a>
+                Welcome ${sessionScope.user.username} <a href="/RemoveSession">(Logout)</a>
             </c:if>
         </p>
         <nav role='navigation' id="mainnav">

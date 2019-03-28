@@ -118,7 +118,7 @@ public class SaveAnswerController extends HttpServlet {
             for (String string : listParam) {
                 if (request.getParameter(string).trim().equals("")) {
                     session.setAttribute("emptyMessage", string + " is empty");
-                    response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+                    response.sendRedirect("/View/Answer/AnswerQuestion.jsp");
                     return;
                 }
             }
@@ -139,7 +139,7 @@ public class SaveAnswerController extends HttpServlet {
 
             //
             session.setAttribute("resultMessage", "thanks you for answer our survey ");
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
+            response.sendRedirect("/View/Result/Result.jsp");
             //  response.getWriter().println("<h1 style='color:blue'>" + " thanks you for answer our survey" + "</h1>");
         } catch (MyException ex) {
             response.getWriter().println(ex.getMessage());

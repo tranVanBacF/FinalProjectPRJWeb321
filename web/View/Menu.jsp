@@ -15,7 +15,7 @@
                       min-height: 600px;
                       margin: 0;
                       /* background-color: #1abc9c; */
-                      background-image: linear-gradient(to bottom, #d59254, #cf7693);}
+                      background-image: linear-gradient(to bottom, #c8d9f4, #c8d9f4);}
 
             ul {
                 list-style-type: none;
@@ -52,15 +52,15 @@
     </head>
     <body>
         <ul>
-            <li><a  href="/14_ProjectFinalPRJ321/surveys">Manage Survey</a></li>
+            <li><a  href="/surveys">Manage Survey</a></li>
                 <c:if test="${empty sessionScope.user}">
-                <li><a href="/14_ProjectFinalPRJ321/View/Login/Login.jsp">Login</a></li>
-                <li> <a href="/14_ProjectFinalPRJ321/View/Register/Register.jsp">Register</a></li>
+                <li><a href="/View/Login/Login.jsp">Login</a></li>
+                <li> <a href="/View/Register/Register.jsp">Register</a></li>
 
             </c:if>
             <c:if test="${not empty sessionScope.user}">
                 <li><a style="color: red; font-size: 100%">Welcome ${sessionScope.user.username}</a></li>
-                <li>     <a href="/14_ProjectFinalPRJ321/RemoveSession">(Logout)</a></li>
+                <li>     <a href="/RemoveSession">(Logout)</a></li>
 
             </c:if>
             <!--<li><a href="#contact">Contact</a></li>-->

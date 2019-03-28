@@ -71,7 +71,7 @@ public class AnswerQuestion extends HttpServlet {
             //
             // RequestDispatcher rd = request.getRequestDispatcher("View/Answer/AnswerQuestion.jsp");
             //rd.forward(request, response);
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+            response.sendRedirect("/View/Answer/AnswerQuestion.jsp");
 
         } catch (MyException ex) {
             response.getWriter().println(ex);

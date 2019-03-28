@@ -190,7 +190,7 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
                     if (isEmpty) {
                          session.setAttribute("listQuestion", listQuestion);
                         session.setAttribute("messageErrorAnswer", "Question " + count + " is emtpy, you must have to fill");
-                        response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+                        response.sendRedirect("/View/Answer/AnswerQuestion.jsp");
                         return;
                     }
                     count++;
@@ -215,13 +215,13 @@ public class SaveAnwerUsingPaginController extends HttpServlet {
                 session.setAttribute("submiter", "");
 
                 session.setAttribute("resultMessage", "thanks you for answer our survey ");
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Result/Result.jsp");
+                response.sendRedirect("/View/Result/Result.jsp");
                 return;
             }
 ////
             session.setAttribute("currentPage", nextPage);
             session.setAttribute("listQuestion", listQuestion);
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Answer/AnswerQuestion.jsp");
+            response.sendRedirect("/View/Answer/AnswerQuestion.jsp");
 
         } catch (MyException ex) {
             Logger.getLogger(SaveAnwerUsingPaginController.class.getName()).log(Level.SEVERE, null, ex);

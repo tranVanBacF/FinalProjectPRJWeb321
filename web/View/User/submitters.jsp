@@ -24,16 +24,20 @@
     <body>
         <jsp:include page="../Menu.jsp"/>
         <br>
-        <h1 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getName()}</h1>
+        <h1 style="text-align: center; color: red; font-family: sans-serif">${survey.getName()}</h1>
         <br>
-        <h2 style="text-align: center; color: #A0FF77; font-family: sans-serif">${survey.getDescription()}</h2>
+        <h2 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getDescription()}</h2>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
+        </c:if>
+        <c:if test="${not empty systemException}">
+            <h2>${systemException}</h2>
         </c:if>
         <c:if test="${submitters.isEmpty()}">
             <h2>Your survey don't have any submit</h2>;
         </c:if>
-        <c:if test="${!submitters.isEmpty()}">
+        <c:if test="${empty systemException}">
+            <c:if test="${!submitters.isEmpty()}">
             <table>
                 <tr>
                     <th><h3>Submitter</h3></th>
@@ -47,6 +51,7 @@
                 </tr>
                 </c:forEach>
             </table>
+            </c:if>
         </c:if>
     </body>
 </html>

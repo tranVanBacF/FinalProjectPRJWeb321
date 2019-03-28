@@ -119,14 +119,14 @@ public class RegisterUserController extends HttpServlet {
             for (int i = 0; i < listValue.size(); i++) {
                 if (listValue.get(i).equals("")) {
                     session.setAttribute("responseRegister", listParam.get(i) + " is empty");
-                    response.sendRedirect("/14_ProjectFinalPRJ321/View/Register/Register.jsp");
+                    response.sendRedirect("/View/Register/Register.jsp");
                     return;
                 }
             }
             // check user exist or not
             if (ManageUserDAO.getOneUser(username) != null) {
                 session.setAttribute("responseRegister", username + " exist");
-                response.sendRedirect("/14_ProjectFinalPRJ321/View/Register/Register.jsp");
+                response.sendRedirect("/View/Register/Register.jsp");
                 return;
             }
             // check password equal repassword or not
@@ -144,11 +144,11 @@ public class RegisterUserController extends HttpServlet {
             } else {
                 session.setAttribute("responseRegister", "Register Fail");
             }
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Register/Register.jsp");
+            response.sendRedirect("/View/Register/Register.jsp");
 
         } catch (MyException ex) {
             session.setAttribute("MyException", ex);
-            response.sendRedirect("/14_ProjectFinalPRJ321/View/Register/Register.jsp");
+            response.sendRedirect("/View/Register/Register.jsp");
         }
     }
 

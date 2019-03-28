@@ -17,12 +17,16 @@
         <jsp:include page="../Menu.jsp"/>
         <h3 style="text-align: center; color: red">Submit of ${submitter}</h3>
         <br>
-        <h1 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getName()}</h1>
+        <h1 style="text-align: center; color: red; font-family: sans-serif">${survey.getName()}</h1>
         <br>
-        <h2 style="text-align: center; color: #A0FF77; font-family: sans-serif">${survey.getDescription()}</h2>
+        <h2 style="text-align: center; color: yellow; font-family: sans-serif">${survey.getDescription()}</h2>
         <c:if test="${not empty exception}">
             <h2>${exception}</h2>
         </c:if>
+        <c:if test="${not empty systemException}">
+            <h2>${systemException}</h2>
+        </c:if>
+        <c:if test="${empty systemException}">
         <table style="width: 80%; margin-left: auto; margin-right: auto; font-family: sans-serif">
              <tr>
                 <th>Question</th>
@@ -37,5 +41,6 @@
             </tr>
             </c:forEach>
         </table>
+        </c:if>
     </body>
 </html>

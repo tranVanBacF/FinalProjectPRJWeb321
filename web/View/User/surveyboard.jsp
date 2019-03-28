@@ -23,7 +23,7 @@
             th, td {
                 border: 1px solid black;
                 border-collapse: collapse;
-                border-color: #A0FF77; 
+                border-color: #006c92; 
                 font-size: 30;
             }
             button {

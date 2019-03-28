@@ -57,7 +57,7 @@
             <div class="wrap-contact100">
                 <h1 style="color: brown"> ${resultMessage}</h1>
 
-                <h3 style="color: background"> Please answer all question before submit</h3>
+                <!--<h3 style="color: background"> Please answer all question before submit</h3>-->
             </div>
         </div>
 
